@@ -1,0 +1,9 @@
+export const environment: any = {
+	test: true,
+
+	API_URL: 'http://localhost:8000/api',
+	OAUTH_URL: 'http://localhost:8000/oauth',
+
+	API_NR: 2,
+	API_KEY: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+};
