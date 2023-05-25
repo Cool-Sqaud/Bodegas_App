@@ -1,5 +1,5 @@
 import { TokenService } from './token.service';
-import { environment } from './../../environments/environment';
+import { environment } from '../../environments/environment';
 import { User } from './../interfaces';
 import { Observable, map, catchError, of } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
