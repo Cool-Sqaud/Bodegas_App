@@ -1,10 +1,19 @@
 <!-- NAVBAR HERE -->
 <nav>
-    <ul>
+    <!-- The user role -->
+    <ul *ngIf="isLoggedIn && role==1"> 
         <li><img src="../../assets/P4project.png" alt="logo"></li>
-        <li><a href="#">Humidity</a></li>
-        <li><a href="#">Minimum Temperature</a></li>
-        <li id="right"><a href="#">Logout</a></li>
+        <li><a routerLink="#">Humidity</a></li>
+        <li><a routerLink="#">Minimum Temperature</a></li>
+        <li id="right"><a routerLink="#">Logout</a></li>
+    </ul>
+    <!-- The admin role  -->
+    <ul *ngIf="isLoggedIn && role==2"> 
+        <li><img src="../../assets/P4project.png" alt="logo"></li>
+        <li><a routerLink="#">Humidity</a></li>
+        <li><a routerLink="#">Minimum Temperature</a></li>
+        <li><a routerLink="#">User management</a></li>
+        <li id="right"><a routerLink="#">Logout</a></li>
     </ul>
 </nav>
 
