@@ -9,19 +9,27 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppComponent } from './app.component';
 import { SecureComponent } from './secure/secure.component';
-import { AdminComponent } from './secure/admin/admin.component';
 import { PublicComponent } from './public/public.component';
 import { LoginComponent } from './public/login/login.component';
 import { LogoutComponent } from './public/logout/logout.component';
+import { UserAdministrationComponent } from './secure/user-administration/user-administration.component';
+import { HumidityComponent } from './secure/humidity/humidity.component';
+import { TemperatureComponent } from './secure/temperature/temperature.component';
+import { DashboardComponent } from './secure/dashboard/dashboard.component';
+import { AdminDashboardComponent } from './secure/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SecureComponent,
-    AdminComponent,
     PublicComponent,
     LoginComponent,
     LogoutComponent,
+    UserAdministrationComponent,
+    HumidityComponent,
+    TemperatureComponent,
+    DashboardComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     AppRoutingModule,

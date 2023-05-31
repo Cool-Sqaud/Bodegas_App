@@ -1,5 +1,4 @@
-import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 
 @Component({
@@ -7,13 +6,20 @@ import { AuthService } from '../_services/auth.service';
   templateUrl: './secure.component.html',
   styleUrls: ['./secure.component.css']
 })
-export class SecureComponent {
+export class SecureComponent implements OnInit{
+  isLoading: boolean = false;
+  role: Number = 1;
+
   constructor(
-    private router: Router, 
     private authService: AuthService
   ) { }
 
-  logout(): void {
-    this.router.navigate(['logout'])
+  ngOnInit(): void {
+    this.authService.getPermissionLevel().subscribe(
+      result => {
+        this.role = result;
+        this.isLoading = true;;;
+      }
+    )
   }
 }

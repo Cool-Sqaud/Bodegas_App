@@ -1,9 +1,26 @@
 <!-- NAVBAR HERE -->
 <nav>
-    <p>secure navbar</p>
+    <!-- Shows navbar while loading user -->
+    <ul *ngIf="!isLoading"> 
+        <li><a routerLink=""><img src="../../assets/P4project.png" alt="logo"></a></li>
+        <li id="right"><a class="nav-link" routerLink="logout">Logout</a></li>
+    </ul>
+    <!-- The user role -->
+    <ul *ngIf="isLoading && role == 0"> 
+        <li><a routerLink=""><img src="../../assets/P4project.png" alt="logo"></a></li>
+        <li><a class="nav-link" routerLink="humidity">Humidity</a></li>
+        <li><a class="nav-link" routerLink="temperature">Minimum Temperature</a></li>
+        <li id="right"><a class="nav-link" routerLink="logout">Logout</a></li>
+    </ul>
+    <!-- The admin role  -->
+    <ul *ngIf="isLoading && role > 0"> 
+        <li><a routerLink=""><img src="../../assets/P4project.png" alt="logo"></a></li>
+        <li><a class="nav-link" routerLink="humidity">Humidity</a></li>
+        <li><a class="nav-link" routerLink="temperature">Minimum Temperature</a></li>
+        <li><a class="nav-link" routerLink="admin">User management</a></li>
+        <li id="right"><a class="nav-link" routerLink="logout">Logout</a></li>
+    </ul>
 </nav>
-
-<input type="button" value="logout" (click)="logout()">
 
 <!-- ROUTER OUTLET (FOR CHILDREN) -->
 <router-outlet></router-outlet>
