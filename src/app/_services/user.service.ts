@@ -1,7 +1,7 @@
 import { TokenService } from './token.service';
 import { environment } from '../../environments/environment';
 import { User } from './../interfaces';
-import { Observable, map, catchError, of } from 'rxjs';
+import { Observable, map, catchError, of, publishReplay, refCount, from } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -17,17 +17,24 @@ export class UserService extends TokenService {
     private http: HttpClient
   ) { super(); }
 
+  public currentUser: Observable<User | boolean> = from(this.getCurrentUser()).pipe(
+    publishReplay(1), refCount()
+  )
+
   public getCurrentUser(): Observable<User | boolean> {
-    return this.http.get(`${environment.API_URL}/user`, {headers: this.headers}).pipe(
-      map(result =>  result as User), 
-      catchError(err => {
-        if (err instanceof HttpErrorResponse) {
-          // if (err.status === 401) this.removeToken();
-          if (err.status === 401) console.log("You would have been unauthorized...")
-        }
-        return of(false);
-      })
-    );
+    if (!this.currentUser) {
+      return this.http.get(`${environment.API_URL}/user`, {headers: this.headers}).pipe(
+        map(result =>  result as User), 
+        catchError(err => {
+          if (err instanceof HttpErrorResponse) {
+            // if (err.status === 401) this.removeToken();
+            if (err.status === 401) console.log("You would have been unauthorized...")
+          }
+          return of(false);
+        })
+      );
+    }
+    return this.currentUser;
   }
 
   public getAllUsers(): Observable<Array<User> | boolean> {

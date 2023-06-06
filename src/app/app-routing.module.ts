@@ -20,30 +20,23 @@ const routes: Routes = [
     data: {
       authGuardNeedsLoggedIn: true,
       authGuardPermissionLevel: 0,
-      authGuardRedirect: '',
     },
     children: [
       {
         path: '', // Admin Dashboard
         component: AdminDashboardComponent,
+        canMatch: [AuthGuard],
         canActivate: [AuthGuard],
-        title: 'Dashboard',
+        title: 'Admin Dashboard',
         data: {
           authGuardNeedsLoggedIn: true,
           authGuardPermissionLevel: 1,
-          authGuardRedirect: '',
         },
       },
       {
         path: '', // Normal Dashboard
         component: DashboardComponent,
-        canActivate: [AuthGuard],
-        title: 'Dashboard',
-        data: {
-          authGuardNeedsLoggedIn: true,
-          authGuardPermissionLevel: 0,
-          authGuardRedirect: '',
-        },
+        title: 'Dashboard'
       },
       {
         path: 'admin',
@@ -53,30 +46,17 @@ const routes: Routes = [
         data: {
           authGuardNeedsLoggedIn: true,
           authGuardPermissionLevel: 1,
-          authGuardRedirect: '',
         },
       },
       {
         path: 'humidity',
         component: HumidityComponent,
-        canActivate: [AuthGuard],
         title: 'Most Humid Stations',
-        data: {
-          authGuardNeedsLoggedIn: true,
-          authGuardPermissionLevel: 0,
-          authGuardRedirect: '',
-        },
       },
       {
         path: 'temperature',
         component: TemperatureComponent,
-        canActivate: [AuthGuard],
         title: 'Minimum Temperature',
-        data: {
-          authGuardNeedsLoggedIn: true,
-          authGuardPermissionLevel: 0,
-          authGuardRedirect: '',
-        },
       },
     ]
   },

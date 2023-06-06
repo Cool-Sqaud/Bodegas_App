@@ -15,32 +15,28 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!route.data['authGuardNeedsLoggedIn']) return true;
-    if (!this.authService.isLoggedIn) return this.notLoggedIn();
-    
-    const permissionLevel: number | null = route.data['authGuardPermissionLevel'];
-    if (!permissionLevel) return true;
-    if (this.authService.hasPermissionLevel(permissionLevel)) return true;
-    
-    const redirectUrl: string | null = route.data['authGuardRedirect'];
-    if (!redirectUrl) this.redirect('');
-    else this.redirect(redirectUrl);
-    return false;
+    return new Observable<boolean>(obs => {
+      if (!route.data) return obs.next(true);
+      if (!route.data['authGuardNeedsLoggedIn']) return obs.next(true);
+      if (!this.authService.isLoggedIn) return obs.next(false);
+
+      const permissionLevel: number | null = route.data['authGuardPermissionLevel'];
+      if (!permissionLevel) return obs.next(true);
+      return this.authService.hasPermissionLevel(permissionLevel).subscribe(res => obs.next(res ? true : false))
+    })
   }
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (!childRoute.data['authGuardNeedsLoggedIn']) return true;
-      if (!this.authService.isLoggedIn) return this.notLoggedIn();
-      
-      const permissionLevel: number | null = childRoute.data['authGuardPermissionLevel'];
-      if (!permissionLevel) return true;
-      if (this.authService.hasPermissionLevel(permissionLevel)) return true;
-      
-      const redirectUrl: string | null = childRoute.data['authGuardRedirect'];
-      if (!redirectUrl) this.redirect('');
-      else this.redirect(redirectUrl);
-      return false;
+      return new Observable<boolean>(obs => {
+        if (!childRoute.data) return obs.next(true);
+        if (!childRoute.data['authGuardNeedsLoggedIn']) return obs.next(true);
+        if (!this.authService.isLoggedIn) return obs.next(false);
+  
+        const permissionLevel: number | null = childRoute.data['authGuardPermissionLevel'];
+        if (!permissionLevel) return obs.next(true);
+        return this.authService.hasPermissionLevel(permissionLevel).subscribe(res => obs.next(res ? true : false))
+      })
   }
   canDeactivate(
     component: unknown,
@@ -52,7 +48,16 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
   canMatch(
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.authService.isLoggedIn;
+     
+    return new Observable<boolean>(obs => {
+      if (!route.data) return obs.next(true);
+      if (!route.data['authGuardNeedsLoggedIn']) return obs.next(true);
+      if (!this.authService.isLoggedIn) return obs.next(false);
+
+      const permissionLevel: number | null = route.data['authGuardPermissionLevel'];
+      if (!permissionLevel) return obs.next(true);
+      return this.authService.hasPermissionLevel(permissionLevel).subscribe(res => obs.next(res ? true : false))
+    })
   }
   canLoad(
     route: Route,

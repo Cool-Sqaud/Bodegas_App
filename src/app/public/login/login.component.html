@@ -6,19 +6,14 @@
                 <header>Login</header>
             </div>
             <div class="input-field">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                    <input id="email" class="input" type="email" placeholder="E-mail" formControlName="email">
+                <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <input id="email" class="input" type="username" placeholder="E-mail" formControlName="email">
                     <i>📪</i>
                 </form>
-            </div>
-            <div class="input-field">
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <input id="pwd" type="password" class="input" placeholder="Password" formControlName="password">
                     <i>🔒</i>
                 </form>
-            </div>
-
-            <div class="input-field">
                 <button (click)="onSubmit()" class="submit"><strong>Login</strong></button>
             </div>
 
