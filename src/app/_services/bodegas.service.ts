@@ -21,5 +21,23 @@ export class BodegasService {
       })
     );
   }
+
+  public getTemperatureMeasurements() {
+    return this.http.get(`${environment.API_URL}/measurements/temperature`).pipe(
+      map(result => result),
+      catchError(() => {
+        return of(false);
+      })
+    );
+  }
+
+  public getHistoricTemperatureMeasurements() {
+    return this.http.get(`${environment.API_URL}/measurements/temperature/history`).pipe(
+      map(result => result),
+      catchError(() => {
+        return of(false);
+      })
+    );
+  }
 }
 

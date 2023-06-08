@@ -1,1 +1,79 @@
 <p>temperature works!</p>
+<h1>Current temperature</h1>
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Station</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Temperature</th>
+            <th scope="col">Dew point Temperature</th>
+            <th scope="col">Station Air pressure</th>
+            <th scope="col">Sea level Air pressure</th>
+            <th scope="col">Visibility</th>
+            <th scope="col">Wind speed</th>
+            <th scope="col">Rainfall</th>
+            <th scope="col">Snow depth</th>
+            <th scope="col">FRSHTT</th>
+            <th scope="col">Cloud coverage</th>
+            <th scope="col">Wind direction</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let result of someResults">
+            <td>{{ result.station }}</td>
+            <td>{{ result.date }}</td>
+            <td>{{ result.time }}</td>
+            <td>{{ result.temp }}</td>
+            <td>{{ result.dewp }}</td>
+            <td>{{ result.stp }}</td>
+            <td>{{ result.slp }}</td>
+            <td>{{ result.visib }}</td>
+            <td>{{ result.wdsp }}</td>
+            <td>{{ result.prcp }}</td>
+            <td>{{ result.sndp }}</td>
+            <td>{{ result.frshtt }}</td>
+            <td>{{ result.cldc }}</td>
+            <td>{{ result.winddir }}</td>
+        </tr>
+    </tbody>
+</table>
+<h1>historic temperature</h1>
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Station</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Temperature</th>
+            <th scope="col">Dew point Temperature</th>
+            <th scope="col">Station Air pressure</th>
+            <th scope="col">Sea level Air pressure</th>
+            <th scope="col">Visibility</th>
+            <th scope="col">Wind speed</th>
+            <th scope="col">Rainfall</th>
+            <th scope="col">Snow depth</th>
+            <th scope="col">FRSHTT</th>
+            <th scope="col">Cloud coverage</th>
+            <th scope="col">Wind direction</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let result of someHistoricResults">
+            <td>{{ result.station }}</td>
+            <td>{{ result.date }}</td>
+            <td>{{ result.time }}</td>
+            <td>{{ result.temp }}</td>
+            <td>{{ result.dewp }}</td>
+            <td>{{ result.stp }}</td>
+            <td>{{ result.slp }}</td>
+            <td>{{ result.visib }}</td>
+            <td>{{ result.wdsp }}</td>
+            <td>{{ result.prcp }}</td>
+            <td>{{ result.sndp }}</td>
+            <td>{{ result.frshtt }}</td>
+            <td>{{ result.cldc }}</td>
+            <td>{{ result.winddir }}</td>
+        </tr>
+    </tbody>
+</table>
