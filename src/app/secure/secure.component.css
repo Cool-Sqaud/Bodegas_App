@@ -48,3 +48,12 @@ li{
 #right:hover{
     border-radius: 10px ;
 }
+
+footer {
+    background-color: rgba(128, 216, 224, 0.904);
+    margin: auto;
+    position: fixed;
+    bottom: 0;
+    height: 99px;
+    width: 100vw;
+}

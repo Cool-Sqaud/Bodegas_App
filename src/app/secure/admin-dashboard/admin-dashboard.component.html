@@ -1,18 +1,19 @@
 <div class="user-container">
     <div class="user">
-        <p>Welcome</p>
+        <h2 *ngIf="user">Welcome {{user.first_name + ' ' + user.last_name}}</h2>
+        <h2 *ngIf="!user">Welcome</h2>
     </div>
 </div>
 <div class="container">
     <div class="dashboard">
         <a class="humidity" routerLink="humidity">
-            <p>Humidity Page</p>
+            <h3>Humidity <br>Page</h3>
         </a>
         <a class="temperature" routerLink="temperature">
-            <p>Minimum Temperature Page</p>
+            <h3>Minimum Temperature Page</h3>
         </a>
         <a class="admin" routerLink="temperature">
-            <p>User Administration Page</p>
+            <h3>User Administration Page</h3>
         </a>
     </div>
 </div>

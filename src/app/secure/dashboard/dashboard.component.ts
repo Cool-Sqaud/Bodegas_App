@@ -13,8 +13,12 @@ export class DashboardComponent implements OnInit{
     private userService: UserService
   ) {}
 
+  user: any;
+
   ngOnInit(): void {
-    
+    this.userService.getCurrentUser().subscribe(res => 
+      this.user = res
+    ) 
   }
 
   download() {
