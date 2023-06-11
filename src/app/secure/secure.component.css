@@ -4,7 +4,7 @@ ul{
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: rgba(128, 216, 224, 0.904);
+    background-color: rgb(128, 216, 224);
     border-bottom: 8px solid rgb(255, 255, 255) ;
 }
 
@@ -40,7 +40,7 @@ li{
 }
 
 .nav-link:hover{
-    background-color: rgba(68, 194, 206, 0.904);
+    background-color: rgb(68, 194, 206);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
@@ -50,10 +50,10 @@ li{
 }
 
 footer {
-    background-color: rgba(128, 216, 224, 0.904);
+    background-color: rgb(128, 216, 224);
     margin: auto;
     position: fixed;
     bottom: 0;
     height: 99px;
-    width: 100vw;
+    width: 100%;
 }

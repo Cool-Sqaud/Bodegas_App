@@ -15,8 +15,9 @@
 }
 
 .user {
-    color: white;
-    background-color: goldenrod;
+    color: black;
+    border: 5px solid goldenrod;
+    background-color: rgb(238, 234, 225);
     width: calc(70% - 10px);
     text-align: center;
 }
@@ -44,13 +45,19 @@ a:hover {
 }
 
 .humidity {
-    background-color: goldenrod;
+    color: black;
+    border: 5px solid goldenrod;
+    background-color: rgb(238, 234, 225);
 }
 
 .temperature {
-    background-color: goldenrod;
+    color: black;
+    border: 5px solid goldenrod;
+    background-color: rgb(238, 234, 225);
 }
 
 .admin {
-    background-color: goldenrod; 
+    color: black;
+    border: 5px solid goldenrod; 
+    background-color: rgb(238, 234, 225);
 }

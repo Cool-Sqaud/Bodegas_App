@@ -3,13 +3,13 @@ import { BodegasService } from 'src/app/_services/bodegas.service';
 import { DownloadService } from 'src/app/_services/download.service';
 
 @Component({
-  selector: 'app-temperature',
-  templateUrl: './temperature.component.html',
-  styleUrls: ['./temperature.component.css']
+  selector: 'app-history',
+  templateUrl: './history.component.html',
+  styleUrls: ['./history.component.css']
 })
-export class TemperatureComponent implements OnInit {
+export class TemperatureHistoryComponent implements OnInit {
 
-  someResults: Array<any> = [];
+  someHistoricResults: Array<any> = [];
 
   constructor(
     private bodegasService: BodegasService,
@@ -17,10 +17,10 @@ export class TemperatureComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.bodegasService.getTemperatureMeasurements()
+    this.bodegasService.getHistoricTemperatureMeasurements()
         .subscribe(
           (result: any) => {
-            this.someResults = result;
+            this.someHistoricResults = result;
             console.log(result);
           } 
         )
@@ -28,7 +28,7 @@ export class TemperatureComponent implements OnInit {
 
   download() {
     const downloadableData: any = [];
-    this.someResults.forEach(result => {
+    this.someHistoricResults.forEach(result => {
       let resultJSON = {
           'station': result['station'],
           'date': result['date'],

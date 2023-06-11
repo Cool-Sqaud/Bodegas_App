@@ -17,7 +17,7 @@ import { HumidityComponent } from './secure/humidity/humidity.component';
 import { TemperatureComponent } from './secure/temperature/temperature.component';
 import { DashboardComponent } from './secure/dashboard/dashboard.component';
 import { AdminDashboardComponent } from './secure/admin-dashboard/admin-dashboard.component';
-import { TemperatureHistoryComponent } from './secure/temperature-history/temperature-history.component';
+import { TemperatureHistoryComponent } from './secure/temperature/history/history.component';
 
 @NgModule({
   declarations: [
