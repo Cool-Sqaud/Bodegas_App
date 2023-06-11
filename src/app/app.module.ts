@@ -17,6 +17,7 @@ import { HumidityComponent } from './secure/humidity/humidity.component';
 import { TemperatureComponent } from './secure/temperature/temperature.component';
 import { DashboardComponent } from './secure/dashboard/dashboard.component';
 import { AdminDashboardComponent } from './secure/admin-dashboard/admin-dashboard.component';
+import { TemperatureHistoryComponent } from './secure/temperature-history/temperature-history.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AdminDashboardComponent } from './secure/admin-dashboard/admin-dashboar
     TemperatureComponent,
     DashboardComponent,
     AdminDashboardComponent,
+    TemperatureHistoryComponent,
   ],
   imports: [
     AppRoutingModule,

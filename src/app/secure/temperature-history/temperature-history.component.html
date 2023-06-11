@@ -1,7 +1,5 @@
-<p>temperature works!</p>
-<button style="padding: 5px;" class="historictemperature" routerLink="historic">Historic Data</button>
-<button style="padding: 5px;">download (WIP)</button>
-<h1>Current temperature</h1>
+<p>temperature-history works!</p>
+<h1>historic temperature</h1>
 <table>
     <thead>
         <tr>
@@ -12,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let result of someResults">
+        <tr *ngFor="let result of someHistoricResults">
             <td class="parentClass1">
                 {{ result.station }}
             </td>

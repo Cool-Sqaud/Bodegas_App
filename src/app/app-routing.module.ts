@@ -1,5 +1,6 @@
 import { AdminDashboardComponent } from './secure/admin-dashboard/admin-dashboard.component';
 import { TemperatureComponent } from './secure/temperature/temperature.component';
+import { TemperatureHistoryComponent } from './secure/temperature-history/temperature-history.component';
 import { HumidityComponent } from './secure/humidity/humidity.component';
 import { UserAdministrationComponent } from './secure/user-administration/user-administration.component';
 import { DashboardComponent } from './secure/dashboard/dashboard.component';
@@ -57,6 +58,11 @@ const routes: Routes = [
         path: 'temperature',
         component: TemperatureComponent,
         title: 'Minimum Temperature',
+      },
+      {
+        path: 'temperature/historic',
+        component: TemperatureHistoryComponent,
+        title: 'historic Minimum Temperature',
       },
     ]
   },
