@@ -1,5 +1,4 @@
 import { UserService } from './../../_services/user.service';
-import { DownloadService } from './../../_services/download.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit{
   constructor(
-    private downloadService: DownloadService,
     private userService: UserService
   ) {}
 
@@ -19,14 +17,5 @@ export class DashboardComponent implements OnInit{
     this.userService.getCurrentUser().subscribe(res => 
       this.user = res
     ) 
-  }
-
-  download() {
-    this.userService.getCurrentUser().subscribe(
-      res => {
-        console.log(res);
-        this.downloadService.downloadJSON(res);
-      }
-    )  
   }
 }
