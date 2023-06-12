@@ -57,7 +57,7 @@ export class DownloadService {
     let xml = '<?xml version="1.0" encoding="UTF-8" ?>';
     xml += `\n<${tag}>`;
     xml += this.JSONconverter(json);
-    xml += `\n<${tag}>`;
+    xml += `\n</${tag}>`;
     return xml;
   }
 
