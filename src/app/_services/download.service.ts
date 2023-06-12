@@ -33,7 +33,8 @@ export class DownloadService {
   private JSONconverter(obj: any): string {
     let xml = '';
     for (let prop in obj) {
-      xml += obj[prop] instanceof Array ? '' : '\n<' + prop + '>';
+      if (/[0-9]{1,}/.test(prop)) xml += obj[prop] instanceof Array ? '' : '<' + prop + '>'
+      else xml += obj[prop] instanceof Array ? '' : '\n<' + prop + '>';
       
       if (obj[prop] instanceof Array) {
         for (let array in obj[prop]) {
@@ -48,17 +49,20 @@ export class DownloadService {
       }
       xml += obj[prop] instanceof Array ? '' : '</' + prop + '>';
     }
+    xml = xml.replace(/<\/?[0-9]{1,}>/g, '');
     return xml;
   }
 
-  private json2xml(json: any) {
+  private json2xml(json: any, tag: string) {
     let xml = '<?xml version="1.0" encoding="UTF-8" ?>';
+    xml += `\n<${tag}>`;
     xml += this.JSONconverter(json);
+    xml += `\n<${tag}>`;
     return xml;
   }
 
-  public downloadJSON(json: any): void {
-    const xml = this.json2xml(json);
+  public downloadJSON(json: any, tag: string): void {
+    const xml = this.json2xml(json, tag);
     const blob = new Blob([xml], { type: 'text/xml' });
     const url = URL.createObjectURL(blob);
 

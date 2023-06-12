@@ -29,7 +29,7 @@ export class TemperatureComponent implements OnInit {
   download() {
     const downloadableData: any = [];
     this.someResults.forEach(result => {
-      let resultJSON = {
+      let resultJSON = { 'measurement': {
           'station': result['station'],
           'date': result['date'],
           'time': result['time'],
@@ -52,10 +52,9 @@ export class TemperatureComponent implements OnInit {
             'cloud-coverage': result['cldc'],
             'wind-direction': result['winddir'],
           }
-        };
+        }};
       downloadableData.push(resultJSON);
     })
-    this.downloadService.downloadJSON(downloadableData);
+    this.downloadService.downloadJSON(downloadableData, 'minimum-temperature');
   }
-
 }
