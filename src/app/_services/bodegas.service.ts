@@ -39,5 +39,23 @@ export class BodegasService {
       })
     );
   }
+
+  public getHumidityMeasurements() {
+    return this.http.get(`${environment.API_URL}/measurements/humidity`).pipe(
+      map(result => result),
+      catchError(() => {
+        return of(false);
+      })
+    );
+  }
+
+  public getHistoricHumidityMeasurements() {
+    return this.http.get(`${environment.API_URL}/measurements/humidity/history`).pipe(
+      map(result => result),
+      catchError(() => {
+        return of(false);
+      })
+    );
+  }
 }
 
