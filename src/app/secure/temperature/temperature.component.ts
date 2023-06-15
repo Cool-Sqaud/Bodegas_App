@@ -9,7 +9,9 @@ import { DownloadService } from 'src/app/_services/download.service';
 })
 export class TemperatureComponent implements OnInit {
 
+  loadedMeasurements = false;
   someResults: Array<any> = [];
+  selectedMeasurement: any | null = null;
 
   constructor(
     private bodegasService: BodegasService,
@@ -21,10 +23,28 @@ export class TemperatureComponent implements OnInit {
         .subscribe(
           (result: any) => {
             this.someResults = result;
-            console.log(result);
+            this.loadedMeasurements = true;
           } 
         )
   }
+
+  getStation = (stationnumber: string, measurementDate: string | null = null) => {
+    const measurement = this.someResults.find((measurement) => measurement.date === measurementDate && measurement.station === stationnumber)
+    this.selectedMeasurement = measurement ?? null;
+  }
+
+  getState = (frshtt: string) => {
+    let res = [];
+    if (frshtt[0] === '1') res.push('Fog');
+    if (frshtt[1] === '1') res.push('Raining');
+    if (frshtt[2] === '1') res.push('Snowing');
+    if (frshtt[3] === '1') res.push('Hail');
+    if (frshtt[4] === '1') res.push('Thunder');
+    if (frshtt[5] === '1') res.push('Tornado');
+
+    if (res.length === 0) return 'None';
+    else return res.join(', ');
+}
 
   download() {
     const downloadableData: any = [];
