@@ -6,18 +6,16 @@
     <th>Station</th>
     <th>Country</th>
     <th>Date</th>
-    <th>Time</th>
     <th>Temperature (°C)</th>
     <th>Wind speed (km/h)</th>
     <th>Rainfall (mm)</th>
     <th>Overcast (%)</th>
   </tr>
   <tr *ngFor="let result of Results">
-    <td>{{ result.dewp }}</td>
+    <td>{{ result.avg_dewp }}</td>
     <td>{{ result.station }}</td>
     <td>{{ result.country_code }}</td>
     <td>{{ result.date }}</td>
-    <td>{{ result.time }}</td>
     <td>{{ result.temp }}</td>
     <td>{{ result.wdsp }}</td>
     <td>{{ result.prcp }}</td>
