@@ -1,0 +1,116 @@
+.link {
+    display: block;
+}
+
+a {
+  text-decoration: none;
+  color: #3f51b5;
+}
+
+a:hover{
+  background-color: #3d5bf61a
+}
+
+.example-viewport {
+  height: 800px;
+  width: 500px;
+  border: 1px solid black;
+}
+
+.example-dt {
+  text-decoration: none;
+  height: 30px;
+  font-weight: bold;
+}
+
+.example-dd {
+  height: 30px;
+  color: black;
+}
+
+
+
+.selected{
+  border: solid black 2px;
+  padding: 18px 24px;
+  min-width: 650px;
+}
+.selected h1{
+  font-size: xx-large;
+}
+
+.selected p{
+  font-size: 20px;
+}
+
+
+.search{
+  margin-left: 12%;
+  margin-top: 50px;
+}
+/* button{
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.main_div{
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+
+.view_div{
+    width: 60%;
+    display: flex;
+    background-color: #008CBA;
+}
+
+.user_list li {
+    padding: 5px 7px;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    background-color: #008CBA;
+  }
+
+.user_listli:after {
+    content: "\A";
+    white-space: pre;
+}
+
+.user p{
+    display: inline;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.add {
+    background-color: #4CAF50;
+}
+
+.edit {
+    background-color: #008CBA;
+}
+
+.delete {
+    background-color: #f44336   ;
+} */
