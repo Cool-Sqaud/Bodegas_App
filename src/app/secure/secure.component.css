@@ -47,6 +47,7 @@ li{
 
 #right:hover{
     border-radius: 10px ;
+    background-color: transparent;
 }
 
 footer {

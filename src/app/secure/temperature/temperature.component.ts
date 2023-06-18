@@ -46,6 +46,27 @@ export class TemperatureComponent implements OnInit {
     else return res.join(', ');
 }
 
+getDirection = (windDirection: number) => {
+  switch (true) {
+    case windDirection >= 348.75 && windDirection < 11.25: return "N";
+    case windDirection >= 11.25 && windDirection < 33.75: return "NNE";
+    case windDirection >= 33.75 && windDirection < 56.25: return "NE";
+    case windDirection >= 56.25 && windDirection < 78.75: return "ENE";
+    case windDirection >= 78.75 && windDirection < 101.25: return "E";
+    case windDirection >= 101.25 && windDirection < 123.75: return "ESE";
+    case windDirection >= 123.75 && windDirection < 146.25: return "SE";
+    case windDirection >= 146.25 && windDirection < 168.75: return "SSE";
+    case windDirection >= 168.75 && windDirection < 191.25: return "S";
+    case windDirection >= 191.25 && windDirection < 213.75: return "SSW";
+    case windDirection >= 213.75 && windDirection < 236.25: return "SW";
+    case windDirection >= 236.25 && windDirection < 258.75: return "WSW";
+    case windDirection >= 258.75 && windDirection < 281.25: return "W";
+    case windDirection >= 281.25 && windDirection < 303.75: return "WNW";
+    case windDirection >= 303.75 && windDirection < 326.25: return "NW";
+    default: return "NNW";
+  }
+}
+
   download() {
     const downloadableData: any = [];
     this.someResults.forEach(result => {

@@ -61,3 +61,33 @@ a:hover{
 .selected p{
   font-size: 24px;
 }
+
+.title {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.buttons, .historictemperature {
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 28px;
+  background-color: rgb(128, 216, 224);
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: white;
+}
+
+.buttons {
+  position: absolute;
+  right: 150px;
+  top: 120px;
+}
+
+.historictemperature {
+  position: absolute;
+  right: 300px;
+  top: 120px;
+}
+
+.buttons:hover, .historictemperature:hover {
+  background-color: rgb(68, 194, 206);
+}

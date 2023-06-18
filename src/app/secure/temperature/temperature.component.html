@@ -1,8 +1,8 @@
-<button style="padding: 5px;" class="historictemperature" routerLink="historic">Historic Data</button>
-<button style="padding: 5px;" (click)="download()">download</button>
-<h1>Current temperature</h1>
+<button class="historictemperature" routerLink="historic">Historic Data</button>
+<button class="buttons" (click)="download()">download</button>
+<h1 class="title">Current temperature</h1>
 <p *ngIf="!loadedMeasurements" style="margin:auto">Loading measurements...</p>
-<div *ngIf="loadedMeasurements">
+<div *ngIf="loadedMeasurements" class="dataView">
     <mat-grid-list cols="2">
         <div class="options">
             <mat-grid-tile>
@@ -65,7 +65,7 @@
                         <p class="HmoreRight">miscellaneous:</p>
                     </div>
                     <div class="wrapper">
-                        <p class="left">{{ selectedMeasurement.winddir }}</p>
+                        <p class="left">{{ getDirection(selectedMeasurement.winddir) }} ({{ selectedMeasurement.winddir }}°)</p>
                         <p class="moreRight">{{ getState(selectedMeasurement.frshtt) }}</p>
                     </div>
                 </div>
