@@ -33,7 +33,7 @@ export class TemperatureComponent implements OnInit {
     this.selectedMeasurement = measurement ?? null;
   }
 
-  getState = (frshtt: string) => {
+  getState(frshtt: string) {
     let res = [];
     if (frshtt[0] === '1') res.push('Fog');
     if (frshtt[1] === '1') res.push('Raining');
@@ -44,28 +44,27 @@ export class TemperatureComponent implements OnInit {
 
     if (res.length === 0) return 'None';
     else return res.join(', ');
-}
-
-getDirection = (windDirection: number) => {
-  switch (true) {
-    case windDirection >= 348.75 && windDirection < 11.25: return "N";
-    case windDirection >= 11.25 && windDirection < 33.75: return "NNE";
-    case windDirection >= 33.75 && windDirection < 56.25: return "NE";
-    case windDirection >= 56.25 && windDirection < 78.75: return "ENE";
-    case windDirection >= 78.75 && windDirection < 101.25: return "E";
-    case windDirection >= 101.25 && windDirection < 123.75: return "ESE";
-    case windDirection >= 123.75 && windDirection < 146.25: return "SE";
-    case windDirection >= 146.25 && windDirection < 168.75: return "SSE";
-    case windDirection >= 168.75 && windDirection < 191.25: return "S";
-    case windDirection >= 191.25 && windDirection < 213.75: return "SSW";
-    case windDirection >= 213.75 && windDirection < 236.25: return "SW";
-    case windDirection >= 236.25 && windDirection < 258.75: return "WSW";
-    case windDirection >= 258.75 && windDirection < 281.25: return "W";
-    case windDirection >= 281.25 && windDirection < 303.75: return "WNW";
-    case windDirection >= 303.75 && windDirection < 326.25: return "NW";
-    default: return "NNW";
   }
-}
+
+  getDirection(angle: number) {
+    if (angle === null) return "Unknown"
+    if (angle >= 348.75 || angle < 11.25) return "N";
+    if (angle < 33.75) return "NNE";
+    if (angle < 56.25) return "NE";
+    if (angle < 78.75) return "ENE";
+    if (angle < 101.25) return "E";
+    if (angle < 123.75) return "ESE";
+    if (angle < 146.25) return "SE";
+    if (angle < 168.75) return "SSE";
+    if (angle < 191.25) return "S";
+    if (angle < 213.75) return "SSW";
+    if (angle < 236.25) return "SW";
+    if (angle < 258.75) return "WSW";
+    if (angle < 281.25) return "W";
+    if (angle < 303.75) return "WNW";
+    if (angle < 326.25) return "NW";
+    return "NNW";
+  }
 
   download() {
     const downloadableData: any = [];
