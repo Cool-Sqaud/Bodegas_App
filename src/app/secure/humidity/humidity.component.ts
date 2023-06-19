@@ -8,8 +8,10 @@ import { BodegasService } from 'src/app/_services/bodegas.service';
 })
 export class HumidityComponent implements OnInit {
 
+  loadedMeasurements = false;
   Results: Array<any> = [];
   HistoricResults: Array<any> = [];
+  selectedMeasurement: any | null = null;
 
   constructor(
     private bodegasService: BodegasService
@@ -23,5 +25,10 @@ export class HumidityComponent implements OnInit {
             console.log(result);
           } 
         )
+  }
+
+  getStation = (stationnumber: string, measurementDate: string | null = null) => {
+    const measurement = this.Results.find((measurement) => measurement.date === measurementDate && measurement.station === stationnumber)
+    this.selectedMeasurement = measurement ?? null;
   }
 }

@@ -1,38 +1,40 @@
+<!--  -->
 <p *ngIf="!loadedUsers" style="margin:auto">Loading users...</p>
 <div *ngIf="loadedUsers">
+<!-- Search segment -->
     <div class="search">
         <form [formGroup]="user" (ngSubmit)="onSubmit()">
-            <label for="name">Welke medewerker zoekt u?</label><br>
+            <label for="name"><strong>Which employee are you looking for?</strong></label><br>
             <input type="text" formControlName="name"><br>
         </form>
-        <button (click)="onSubmit()">Zoeken</button>
+        <button (click)="onSubmit()">Search</button>
     </div>
-    <mat-grid-list cols="2">
-        <div class="options">
-            <mat-grid-tile>
-                <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
-                    <dl class="example-dl">
-                        <a *cdkVirtualFor="let user of postedUsers" (click)="view(user.id)" class="link primary">
-                            <dd class="example-dt">{{user.first_name + ' ' + user.last_name}}</dd>
-                            <dd class="example-dd">{{user.email}}</dd>
-                        </a>
-                    </dl>
-                </cdk-virtual-scroll-viewport>
-            </mat-grid-tile>
-        </div>
-        <mat-grid-tile>
-            <!-- <router-outlet>  
-            </router-outlet> -->
-            <div class="selected">
-                <h1>Gegevens medewerker</h1>
-                <h2>Medewerker ID: {{postedUsers[selectedUser].id}}</h2>
-                <h2>{{postedUsers[selectedUser].first_name + ' ' + postedUsers[selectedUser].last_name}}</h2>
-                <p>Voornaam: {{postedUsers[selectedUser].first_name}}</p>
-                <p>Achternaam: {{postedUsers[selectedUser].last_name}}</p>
-                <p>Email: {{postedUsers[selectedUser].email}}</p>
-                <p>Aangemaakt op: {{postedUsers[selectedUser].created_at.slice(0, 10)}}</p>
-                <p>Laatst bewerkt: {{postedUsers[selectedUser].updated_at.slice(0, 10)}}</p>
-            </div>
-        </mat-grid-tile>
-    </mat-grid-list>
-</div>
+<!-- Users segment -->
+<table>
+    <tr>
+        <th>User ID</th>
+        <th>Email</th>
+        <th>First name</th>
+        <th>Last name</th>
+    </tr>
+
+    <tr *ngFor="let result of postedUsers" (click)="view(result.id)">
+        <td >{{result.id}}</td>
+        <td>{{result.email}}</td>
+        <td>{{result.first_name}}</td>
+        <td>{{result.last_name}}</td>
+    </tr>
+</table>
+<!-- Information selected user segment -->
+    <div class="selected">
+        <h1>Data Employee</h1>
+        <p>Employee ID: {{postedUsers[selectedUser].id}}</p>
+        <p>Full name: {{postedUsers[selectedUser].first_name + ' ' + postedUsers[selectedUser].last_name}}</p>
+        <p>First name: {{postedUsers[selectedUser].first_name}}</p>
+        <p>Last name: {{postedUsers[selectedUser].last_name}}</p>
+        <p>Email: {{postedUsers[selectedUser].email}}</p>
+        <p>Made at: {{postedUsers[selectedUser].created_at.slice(0, 10)}}</p>
+        <p>Last updated: {{postedUsers[selectedUser].updated_at.slice(0, 10)}}</p>
+    </div>
+
+

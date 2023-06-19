@@ -1,4 +1,3 @@
-
 <h2>Top 10 most humid station</h2>
 <table>
   <tr>
@@ -11,9 +10,9 @@
     <th>Rainfall (mm)</th>
     <th>Overcast (%)</th>
   </tr>
-  <tr *ngFor="let result of Results">
+  <tr *ngFor="let result of Results" >
     <td>{{ result.avg_dewp }}</td>
-    <td>{{ result.station }}</td>
+    <td><a (click)="getStation(result.station, result.date)">{{ result.station }}</a></td>
     <td>{{ result.country_code }}</td>
     <td>{{ result.date }}</td>
     <td>{{ result.temp }}</td>
@@ -22,3 +21,12 @@
     <td>{{ result.cldc }}</td>
   </tr>
 </table>
+
+<div class="selected" *ngIf="selectedMeasurement">
+  <h1>Weatherstation Details</h1>
+  <h2>Station number: {{selectedMeasurement.station}}</h2>
+  <p>country: {{selectedMeasurement.country}}</p>
+  <!-- <p>longitude: {{selectedMeasurement.longitude}}</p>
+  <p>latitude: {{selectedMeasurement.latitude}}</p>
+  <p>elevation: {{selectedMeasurement.elevation}}</p> -->
+  <div>

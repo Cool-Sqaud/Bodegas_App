@@ -1,116 +1,55 @@
-.link {
-    display: block;
-}
-
-a {
-  text-decoration: none;
-  color: #3f51b5;
-}
-
-a:hover{
-  background-color: #3d5bf61a
-}
-
-.example-viewport {
-  height: 800px;
-  width: 500px;
-  border: 1px solid black;
-}
-
-.example-dt {
-  text-decoration: none;
-  height: 30px;
-  font-weight: bold;
-}
-
-.example-dd {
-  height: 30px;
-  color: black;
-}
-
-
-
-.selected{
-  border: solid black 2px;
-  padding: 18px 24px;
-  min-width: 650px;
-}
-.selected h1{
-  font-size: xx-large;
-}
-
-.selected p{
-  font-size: 20px;
-}
-
-
+/* Search segment */
 .search{
-  margin-left: 12%;
-  margin-top: 50px;
-}
-/* button{
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+  background-color: lightgray;
+  margin-top: 20px;
+  margin-left: 50px;
+  width: 696px;
+  padding: 20px 32px;
+  border-radius: 25px;
+  box-shadow: inset;
 }
 
-.main_div{
-    width: 60%;
-    margin: auto;
-    text-align: center;
-    justify-content: center;
-    vertical-align: middle;
-    display: flex;
-    align-items: center;
+input{
+  margin-top: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
 }
 
-.view_div{
-    width: 60%;
-    display: flex;
-    background-color: #008CBA;
+button{
+  margin-top: 5px;
+  font-size: larger;
 }
 
-.user_list li {
-    padding: 5px 7px;
-    border-radius: 5px;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: space-around;
-    margin-bottom: 5px;
-    box-sizing: border-box;
-    background-color: #008CBA;
-  }
-
-.user_listli:after {
-    content: "\A";
-    white-space: pre;
+/* Users segment */
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 1300px;
+  margin-left: 50px;
+  margin-top: 20px;
 }
 
-.user p{
-    display: inline;
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }
 
-.right {
-    float: right;
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
 
-.left {
-    float: left;
+td:hover{
+  background-color: lightblue;
 }
 
-.add {
-    background-color: #4CAF50;
+/* Information selected user segment */
+.selected{
+  background-color: lightgray;
+  margin-top: 20px;
+  margin-left: 50px;
+  width: 696px;
+  padding: 20px 32px;
+  border-radius: 25px;
+  box-shadow: inset;
 }
-
-.edit {
-    background-color: #008CBA;
-}
-
-.delete {
-    background-color: #f44336   ;
-} */
