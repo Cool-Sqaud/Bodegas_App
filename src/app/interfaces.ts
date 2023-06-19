@@ -32,7 +32,7 @@ export interface Measurement{
     winddir: number;
 }
 
-export interface TemperatureInt{
+export interface Temperature{
     station: string;
     date: Date;
     time: string;

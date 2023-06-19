@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BodegasService } from 'src/app/_services/bodegas.service';
 import { DownloadService } from 'src/app/_services/download.service';
-import { TemperatureInt } from 'src/app/interfaces';
+import { Temperature } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-history',
@@ -15,9 +15,9 @@ export class TemperatureHistoryComponent implements OnInit {
   });
 
   loadedMeasurements = false;
-  someHistoricResults: Array<TemperatureInt> = [];
-  someHistoricResultsProper: Array<TemperatureInt> = [];
-  selectedMeasurement: any | null = null;
+  someHistoricResults: Temperature[] = [];
+  someHistoricResultsProper: Temperature[] = [];
+  selectedMeasurement: any = null;
 
   constructor(
     private bodegasService: BodegasService,
@@ -56,15 +56,15 @@ export class TemperatureHistoryComponent implements OnInit {
     this.selectedMeasurement = measurement ?? null;
   }
 
-searchCountry = (countryname: string) => this.someHistoricResults.filter(
-  (measurement) => measurement.country == countryname)
+  searchCountry = (countryname: string) => this.someHistoricResults.filter(
+    (measurement) => measurement.country == countryname)
 
 
-searchStation = (stationnumber: string) => this.someHistoricResults.filter(
-  (measurement) => measurement.station == stationnumber)
+  searchStation = (stationnumber: string) => this.someHistoricResults.filter(
+    (measurement) => measurement.station == stationnumber)
 
 
-  getState = (frshtt: string) => {
+  getState(frshtt: string) {
     let res = [];
     if (frshtt[0] === '1') res.push('Fog');
     if (frshtt[1] === '1') res.push('Raining');

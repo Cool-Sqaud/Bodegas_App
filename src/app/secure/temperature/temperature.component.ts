@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BodegasService } from 'src/app/_services/bodegas.service';
 import { DownloadService } from 'src/app/_services/download.service';
-import { TemperatureInt } from 'src/app/interfaces';
+import { Temperature } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-temperature',
@@ -15,9 +15,9 @@ export class TemperatureComponent implements OnInit {
   });
 
   loadedMeasurements = false;
-  someResults: Array<TemperatureInt> = [];
-  someResultsProper: Array<TemperatureInt> = [];
-  selectedMeasurement: any | null = null;
+  someResults: Temperature[] = [];
+  someResultsProper: Temperature[] = [];
+  selectedMeasurement: any = null;
 
   constructor(
     private bodegasService: BodegasService,
