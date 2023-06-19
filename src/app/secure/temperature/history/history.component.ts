@@ -97,6 +97,11 @@ searchStation = (stationnumber: string) => this.someHistoricResults.filter(
     return "NNW";
   }
 
+  countrySyntax(country: string) {
+    const split = country.split(',');
+    return [split[1], split[0]].join(' ').slice(1);
+  }
+
   download() {
     const downloadableData: any = [];
     this.someHistoricResults.forEach(result => {

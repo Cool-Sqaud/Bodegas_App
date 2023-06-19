@@ -1,7 +1,33 @@
 <!--  -->
-<p *ngIf="!loadedUsers" style="margin:auto">Loading users...</p>
-<div *ngIf="loadedUsers">
-<!-- Search segment -->
+<div *ngIf="!loadedUsers" class="flexbox">
+        <!-- Search segment -->
+        <div class="search">
+            <form [formGroup]="user" (ngSubmit)="onSubmit()">
+                <label for="name"><strong>Which employee are you looking for?</strong></label><br>
+                <input type="text" formControlName="name"><br>
+            </form>
+            <button (click)="onSubmit()">Search</button>
+        </div>
+        <div class="buttons">
+            <button>Something</button>
+            <button>Something Else</button>
+        </div>
+        <!-- Users segment -->
+        <table>
+            <tr>
+                <th [width]="70">User ID</th>
+                <th>Email</th>
+                <th [width]="140">First name</th>
+                <th [width]="140">Last name</th>
+            </tr>
+        </table>
+    <div class="selected">
+        <h1>Data Employee</h1>
+        <p>Loading Employee...</p>
+    </div>
+</div>
+<div *ngIf="loadedUsers" class="flexbox">
+    <!-- Search segment -->
     <div class="search">
         <form [formGroup]="user" (ngSubmit)="onSubmit()">
             <label for="name"><strong>Which employee are you looking for?</strong></label><br>
@@ -9,22 +35,26 @@
         </form>
         <button (click)="onSubmit()">Search</button>
     </div>
-<!-- Users segment -->
-<table>
-    <tr>
-        <th>User ID</th>
-        <th>Email</th>
-        <th>First name</th>
-        <th>Last name</th>
-    </tr>
+    <div class="buttons">
+        <button>Something</button>
+        <button>Something Else</button>
+    </div>
+    <!-- Users segment -->
+    <table>
+        <tr>
+            <th [width]="70">User ID</th>
+            <th>Email</th>
+            <th [width]="140">First name</th>
+            <th [width]="140">Last name</th>
+        </tr>
 
-    <tr *ngFor="let result of postedUsers" (click)="view(result.id)">
-        <td >{{result.id}}</td>
-        <td>{{result.email}}</td>
-        <td>{{result.first_name}}</td>
-        <td>{{result.last_name}}</td>
-    </tr>
-</table>
+        <tr *ngFor="let result of postedUsers" (click)="view(result.id)">
+            <td >{{result.id}}</td>
+            <td>{{result.email}}</td>
+            <td>{{result.first_name}}</td>
+            <td>{{result.last_name}}</td>
+        </tr>
+    </table>
 <!-- Information selected user segment -->
     <div class="selected">
         <h1>Data Employee</h1>
@@ -36,5 +66,6 @@
         <p>Made at: {{postedUsers[selectedUser].created_at.slice(0, 10)}}</p>
         <p>Last updated: {{postedUsers[selectedUser].updated_at.slice(0, 10)}}</p>
     </div>
+</div>
 
 

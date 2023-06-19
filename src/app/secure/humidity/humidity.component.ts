@@ -31,4 +31,9 @@ export class HumidityComponent implements OnInit {
     const measurement = this.Results.find((measurement) => measurement.date === measurementDate && measurement.station === stationnumber)
     this.selectedMeasurement = measurement ?? null;
   }
+
+  countrySyntax(country: string) {
+    const split = country.split(',');
+    return [split[1], split[0]].join(' ').slice(1);
+  }
 }

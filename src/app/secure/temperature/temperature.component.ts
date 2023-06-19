@@ -95,6 +95,11 @@ export class TemperatureComponent implements OnInit {
     return "NNW";
   }
 
+  countrySyntax(country: string) {
+    const split = country.split(',');
+    return [split[1], split[0]].join(' ').slice(1);
+  }
+
   download() {
     const downloadableData: any = [];
     this.someResults.forEach(result => {
