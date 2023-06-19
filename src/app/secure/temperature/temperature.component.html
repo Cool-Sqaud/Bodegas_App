@@ -19,11 +19,18 @@
         </mat-grid-list>
     </div>
     <div *ngIf="loadedMeasurements" class="dataView">
+        <div class="search">
+            <form [formGroup]="station" (ngSubmit)="onSubmit()">
+                <label for="name">Welk station zoekt u?</label><br>
+                <input type="text" formControlName="name"><br>
+            </form>
+            <button (click)="onSubmit()">Zoeken</button>
+        </div>
         <mat-grid-list cols="2" rowHeight="700px">
             <mat-grid-tile>
                 <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
                     <dl class="example-dl">
-                        <a *cdkVirtualFor="let measurement of someResults"  (click)="getStation(measurement.station, measurement.date)">
+                        <a *cdkVirtualFor="let measurement of someResultsProper"  (click)="getStation(measurement.station, measurement.date)">
                             <dd class="example-dt">Station number: {{measurement.station}}</dd>
                             <dd class="example-de">Date: {{measurement.date + ' ' +  measurement.time}}</dd>
                             <dd class="example-dd">Temperature: {{measurement.temp}}°C</dd>
