@@ -17,7 +17,7 @@ export class HistoryComponent {
   ) { }
 
   ngOnInit(): void {
-    this.bodegasService.getHistoricHumidityMeasurements()
+    this.bodegasService.getHistoricTemperatureMeasurements()
         .subscribe(
           (result: any) => {
             this.Historic_Humidity_Results = result;
@@ -41,6 +41,11 @@ export class HistoryComponent {
       downloadableData.push(resultJSON);
     })
     this.downloadService.downloadJSON(downloadableData, 'average-humidity');
+  }
+
+  countrySyntax(country: string) {
+    const split = country.split(',');
+    return [split[1], split[0]].join(' ').slice(1);
   }
 
 }

@@ -14,8 +14,8 @@
     <tr *ngFor="let result of Historic_Humidity_Results">
       <td>{{ result.station }}</td>
       <td>{{ result.date }}</td>
-      <td>{{result.country_code}}</td> 
-      <td>{{ result.avg_dewp }}</td>
+      <td>{{countrySyntax(result.country)}}</td> 
+      <td>{{ result.dewp }}</td>
       <td>{{ result.temp }}</td>
       <td>{{ result.wdsp }}</td>
       <td>{{ result.prcp }}</td>

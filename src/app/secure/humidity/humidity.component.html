@@ -14,7 +14,7 @@
   <tr *ngFor="let result of Humidity_Results" (click)="getStation(result.station, result.date)">
     <td>{{ result.station }}</td>
     <td>{{ result.date }}</td>
-    <td>{{countrySyntax(result.country_code)}}</td> 
+    <td>{{countrySyntax(result.country)}}</td> 
     <td>{{ result.avg_dewp }}</td>
     <td>{{ result.temp }}</td>
     <td>{{ result.wdsp }}</td>
