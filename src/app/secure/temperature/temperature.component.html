@@ -1,42 +1,46 @@
 <body>
-    <button class="historictemperature" routerLink="historic">Historic Data</button>
-    <button class="buttons" (click)="download()">download</button>
-    <h1 class="title">Current Stations below 15°C</h1>
-    <div *ngIf="!loadedMeasurements" class="dataView">
+    <div class="heading">
+        <div class="search">
+            <form [formGroup]="station" (ngSubmit)="onSubmit()">
+                <label for="name">Welk station zoekt u?</label><br>
+                <input type="text" formControlName="name"><br>
+            </form>
+            <button (click)="onSubmit()">Zoeken</button>
+        </div>
+        <h1 class="title">History of Stations below 15°C</h1>
+        <div class="buttons">
+            <button routerLink="historic">Historic Data</button>
+            <button (click)="download()">download</button>
+        </div>
+    </div>
+    <div class="dataView">
         <mat-grid-list cols="2" rowHeight="700px">
             <div>
                 <mat-grid-tile>
                     <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
-                        <dl class="example-dl">
+                        <!-- loading... -->
+                        <dl class="example-dl" *ngIf="!loadedMeasurements"> 
                             <dd class="example-dt" style="margin-top: 50px;">Loading measurements...</dd>
+                        </dl>
+                        <!-- loaded -->
+                        <dl class="example-dl" *ngIf="loadedMeasurements">
+                            <a *cdkVirtualFor="let measurement of someResultsProper"  (click)="getStation(measurement.station, measurement.date)">
+                                <dd class="example-dt">Station number: {{measurement.station}}</dd>
+                                <dd class="example-de">Date: {{measurement.date + ' ' +  measurement.time}}</dd>
+                                <dd class="example-dd">Temperature: {{measurement.temp}}°C</dd>
+                                <dd class="example-dd">Country: {{countrySyntax(measurement.country)}}</dd>
+                                <hr>
+                            </a>
                         </dl>
                     </cdk-virtual-scroll-viewport>
                 </mat-grid-tile>
             </div>
             <mat-grid-tile>
-                <div class="selected" style="height: 507.2px;"></div>
-            </mat-grid-tile>
-        </mat-grid-list>
-    </div>
-    <div *ngIf="loadedMeasurements" class="dataView">
-        <mat-grid-list cols="2" rowHeight="700px">
-            <mat-grid-tile>
-                <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
-                    <dl class="example-dl">
-                        <a *cdkVirtualFor="let measurement of someResults"  (click)="getStation(measurement.station, measurement.date)">
-                            <dd class="example-dt">Station number: {{measurement.station}}</dd>
-                            <dd class="example-de">Date: {{measurement.date + ' ' +  measurement.time}}</dd>
-                            <dd class="example-dd">Temperature: {{measurement.temp}}°C</dd>
-                            <dd class="example-dd">Country: {{measurement.country}}</dd>
-                            <hr>
-                        </a>
-                    </dl>
-                </cdk-virtual-scroll-viewport>
-            </mat-grid-tile>
-            <mat-grid-tile>
+                <!-- loading... -->
                 <div class="selected" style="height: 507.2px;" *ngIf="!selectedMeasurement">
-                    <h2 style="text-align: center;">Select a measurement...</h2>
+                    <h2 style="text-align: center;" *ngIf="loadedMeasurements">Select a measurement...</h2>
                 </div>
+                <!-- loaded -->
                 <div class="flex selected" *ngIf="selectedMeasurement">
                     <div class="flex">
                         <div>
@@ -49,7 +53,7 @@
                             <p><span>Elevation:</span> {{selectedMeasurement.elevation}}</p>
                         </div>
                     </div>
-                    <p class="country"><span>Country:</span> {{selectedMeasurement.country}}</p>
+                    <p class="country"><span>Country:</span> {{countrySyntax(selectedMeasurement.country)}}</p>
                     <div class="wrapper">
                         <div class="header">
                             <p>Temperature: </p>

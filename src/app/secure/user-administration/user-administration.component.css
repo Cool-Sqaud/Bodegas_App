@@ -1,11 +1,31 @@
 /* Search segment */
+.flexbox {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.buttons {
+  display: flex;
+  background-color: lightgray;
+  align-self: stretch;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 20px 32px;
+  margin: 10px 25px;
+  width: 500px;
+  border-radius: 5px;
+}
+
 .search{
   background-color: lightgray;
-  margin-top: 20px;
-  margin-left: 50px;
-  width: 696px;
+  margin: 10px 25px;
+  width: 636px;
   padding: 20px 32px;
-  border-radius: 25px;
+  border-radius: 5px;
   box-shadow: inset;
 }
 
@@ -24,9 +44,8 @@ button{
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 1300px;
-  margin-left: 50px;
-  margin-top: 20px;
+  width: 700px;
+  margin: 10px 25px;
 }
 
 td, th {
@@ -46,10 +65,9 @@ td:hover{
 /* Information selected user segment */
 .selected{
   background-color: lightgray;
-  margin-top: 20px;
-  margin-left: 50px;
-  width: 696px;
+  margin: 10px 25px;
+  width: 500px;
   padding: 20px 32px;
-  border-radius: 25px;
+  border-radius: 5px;
   box-shadow: inset;
 }

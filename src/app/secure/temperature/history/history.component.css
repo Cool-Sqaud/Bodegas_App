@@ -3,6 +3,33 @@ body {
   height: calc(100% - 200px);
 }
 
+.heading {
+  display: flex;
+  margin: auto;
+  width: calc(100% - 350px);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search {
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.buttons > button {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  font-size: 28px;
+  background-color: rgb(128, 216, 224);
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: white;
+}
+
+.buttons > button:hover {
+  background-color: rgb(68, 194, 206);
+}
+
 .flex {
   display: flex;
   width: calc(100% - 100px);
@@ -126,20 +153,4 @@ a:hover{
 
 .title {
   text-align: center;
-}
-
-.buttons {
-  padding: 10px;
-  border-radius: 8px;
-  position: absolute;
-  right: 150px;
-  top: 110px;
-  font-size: 28px;
-  background-color: rgb(128, 216, 224);
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: white;
-}
-
-.buttons:hover {
-  background-color: rgb(68, 194, 206);
 }

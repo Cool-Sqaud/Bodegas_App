@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BodegasService } from 'src/app/_services/bodegas.service';
 import { DownloadService } from 'src/app/_services/download.service';
+import { Temperature } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-history',
@@ -8,10 +10,14 @@ import { DownloadService } from 'src/app/_services/download.service';
   styleUrls: ['./history.component.css']
 })
 export class TemperatureHistoryComponent implements OnInit {
+  station: FormGroup = new FormGroup({
+    name: new FormControl(null),
+  });
 
   loadedMeasurements = false;
-  someHistoricResults: Array<any> = [];
-  selectedMeasurement: any | null = null;
+  someHistoricResults: Temperature[] = [];
+  someHistoricResultsProper: Temperature[] = [];
+  selectedMeasurement: any = null;
 
   constructor(
     private bodegasService: BodegasService,
@@ -23,17 +29,42 @@ export class TemperatureHistoryComponent implements OnInit {
       .subscribe(
         (result: any) => {
           this.someHistoricResults = result;
+          this.someHistoricResultsProper = result;
           this.loadedMeasurements = true;
         }
       )
   }
 
-  getStation = (stationnumber: string, measurementDate: string | null = null) => {
+  onSubmit(): void {
+    console.log('test');
+    this.loadedMeasurements = false;
+    if (this.station.value.name) {
+      if (isNaN(this.station.value.name)) {
+        this.someHistoricResultsProper = this.searchCountry(this.station.value.name);
+      }
+      else {
+        this.someHistoricResultsProper = this.searchStation(this.station.value.name);
+      }
+    }
+    else this.someHistoricResultsProper = this.someHistoricResults;
+    console.log('test3');
+    this.loadedMeasurements = true;
+  }
+
+  getStation = (stationnumber: string, measurementDate: Date | null = null) => {
     const measurement = this.someHistoricResults.find((measurement) => measurement.date === measurementDate && measurement.station === stationnumber)
     this.selectedMeasurement = measurement ?? null;
   }
 
-  getState = (frshtt: string) => {
+  searchCountry = (countryname: string) => this.someHistoricResults.filter(
+    (measurement) => measurement.country == countryname)
+
+
+  searchStation = (stationnumber: string) => this.someHistoricResults.filter(
+    (measurement) => measurement.station == stationnumber)
+
+
+  getState(frshtt: string) {
     let res = [];
     if (frshtt[0] === '1') res.push('Fog');
     if (frshtt[1] === '1') res.push('Raining');
@@ -64,6 +95,11 @@ export class TemperatureHistoryComponent implements OnInit {
     if (angle < 303.75) return "WNW";
     if (angle < 326.25) return "NW";
     return "NNW";
+  }
+
+  countrySyntax(country: string) {
+    const split = country.split(',');
+    return [split[1], split[0]].join(' ').slice(1);
   }
 
   download() {

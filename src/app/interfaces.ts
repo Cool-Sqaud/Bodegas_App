@@ -32,6 +32,27 @@ export interface Measurement{
     winddir: number;
 }
 
+export interface Temperature{
+    station: string;
+    date: Date;
+    time: string;
+    country: string;
+    longitude: number;
+    latitude: number;
+    elevation: number;
+    temp: number;
+    dewp: number;
+    stp: number;
+    slp: number;
+    visib: number;
+    wdsp: number;
+    prcp: number;
+    sndp: number;
+    frshtt: string;
+    cldc: number;
+    winddir: number;
+}
+
 export interface Station{
     name: string;
     longitude: number;

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BodegasService } from 'src/app/_services/bodegas.service';
 import { DownloadService } from 'src/app/_services/download.service';
+import { Temperature } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-temperature',
@@ -8,10 +10,14 @@ import { DownloadService } from 'src/app/_services/download.service';
   styleUrls: ['./temperature.component.css']
 })
 export class TemperatureComponent implements OnInit {
+  station: FormGroup = new FormGroup({
+    name: new FormControl(null),
+  });
 
   loadedMeasurements = false;
-  someResults: Array<any> = [];
-  selectedMeasurement: any | null = null;
+  someResults: Temperature[] = [];
+  someResultsProper: Temperature[] = [];
+  selectedMeasurement: any = null;
 
   constructor(
     private bodegasService: BodegasService,
@@ -23,12 +29,35 @@ export class TemperatureComponent implements OnInit {
         .subscribe(
           (result: any) => {
             this.someResults = result;
+            this.someResultsProper = result;
             this.loadedMeasurements = true;
           } 
         )
   }
 
-  getStation = (stationnumber: string, measurementDate: string | null = null) => {
+  onSubmit(): void {
+    console.log('test');
+    this.loadedMeasurements = false;
+    if (this.station.value.name) {
+      if (isNaN(this.station.value.name)) {
+        this.someResultsProper = this.searchCountry(this.station.value.name);
+      }
+      else {
+        this.someResultsProper = this.searchStation(this.station.value.name);
+      }
+    }
+    else this.someResultsProper = this.someResults;
+    console.log('test3');
+    this.loadedMeasurements = true;
+  }
+
+  searchCountry = (countryname: string) => this.someResults.filter(
+    (measurement) => measurement.country == countryname)
+  
+  searchStation = (stationnumber: string) => this.someResults.filter(
+    (measurement) => measurement.station == stationnumber)
+
+  getStation = (stationnumber: string, measurementDate: Date | null = null) => {
     const measurement = this.someResults.find((measurement) => measurement.date === measurementDate && measurement.station === stationnumber)
     this.selectedMeasurement = measurement ?? null;
   }
@@ -64,6 +93,11 @@ export class TemperatureComponent implements OnInit {
     if (angle < 303.75) return "WNW";
     if (angle < 326.25) return "NW";
     return "NNW";
+  }
+
+  countrySyntax(country: string) {
+    const split = country.split(',');
+    return [split[1], split[0]].join(' ').slice(1);
   }
 
   download() {

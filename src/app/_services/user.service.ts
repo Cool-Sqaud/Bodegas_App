@@ -55,7 +55,13 @@ export class UserService extends TokenService {
     );
   }
 
-  public adminAddUser(data: User) {
+  public adminAddUser(data: {
+    role_id: number,
+    first_name: string,
+    last_name: string,
+    email: string,
+    password: string
+  }) {
     return this.http.post(`${environment.API_URL}/admin/user`, data, {headers: this.headers}).pipe(
       map(result => result),
       catchError(() => {
@@ -64,7 +70,12 @@ export class UserService extends TokenService {
     );
   }
 
-  public adminEditUser(id: number, data: User) {
+  public adminEditUser(id: number, data: {
+    role_id: number,
+    first_name: string,
+    last_name: string,
+    email: string
+  }) {
     return this.http.put(`${environment.API_URL}/admin/user/${id}`, data, {headers: this.headers}).pipe(
       map(result => result),
       catchError(() => {
@@ -82,7 +93,9 @@ export class UserService extends TokenService {
     );
   }
 
-  public adminPasswordReset(id: number, data: User) {
+  public adminPasswordReset(id: number, data: {
+    password: string
+  }) {
     return this.http.put(`${environment.API_URL}/admin/user/${id}/reset`, data, {headers: this.headers}).pipe(
       map(result => result),
       catchError(() => {

@@ -51,3 +51,12 @@ export class UserAdministrationComponent implements OnInit {
   view = (id: number) => this.selectedUser = id-1;
 
 }
+
+// const newUser = {
+//   role_id: 1,
+//   first_name: 'uifwahui',
+//   last_name: 'hrgehuiijwioegjw',
+//   email: 'fwahjufwauihf@mail.com',
+//   password: 'password'
+// }
+// this.userService.adminAddUser(newUser);

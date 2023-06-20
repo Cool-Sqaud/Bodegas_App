@@ -1,10 +1,10 @@
 <h2>Top 10 most humid station</h2>
 <table>
   <tr>
-    <th>Humidity</th>
     <th>Station</th>
-    <th>Country</th>
     <th>Date</th>
+    <th>Country</th>
+    <th>Humidity</th>
     <th>Temperature (°C)</th>
     <th>Wind speed (km/h)</th>
     <th>Rainfall (mm)</th>
@@ -15,6 +15,8 @@
     <td>{{ result.station }}</td>
     <td>{{ result.country_code }}</td>
     <td>{{ result.date }}</td>
+    <td>{{ countrySyntax(result.country) }}</td>
+    <td>{{ result.avg_dewp }}</td>
     <td>{{ result.temp }}</td>
     <td>{{ result.wdsp }}</td>
     <td>{{ result.prcp }}</td>
