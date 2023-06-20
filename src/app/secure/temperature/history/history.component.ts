@@ -1,3 +1,4 @@
+import { Measurement } from './../../../interfaces';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BodegasService } from 'src/app/_services/bodegas.service';
@@ -10,14 +11,16 @@ import { Temperature } from 'src/app/interfaces';
   styleUrls: ['./history.component.css']
 })
 export class TemperatureHistoryComponent implements OnInit {
-  station: FormGroup = new FormGroup({
-    name: new FormControl(null),
+  search: FormGroup = new FormGroup({
+    filter: new FormControl(null),
   });
 
   loadedMeasurements = false;
-  someHistoricResults: Temperature[] = [];
-  someHistoricResultsProper: Temperature[] = [];
+  rawMeasurements: Temperature[] = [];
+  sortedMeasurements: Temperature[] = [];
   selectedMeasurement: any = null;
+
+  sortSettings: [String, String] = ['Date', 'DESC'];
 
   constructor(
     private bodegasService: BodegasService,
@@ -28,41 +31,100 @@ export class TemperatureHistoryComponent implements OnInit {
     this.bodegasService.getHistoricTemperatureMeasurements()
       .subscribe(
         (result: any) => {
-          this.someHistoricResults = result;
-          this.someHistoricResultsProper = result;
+          
+          this.rawMeasurements = this.sortedMeasurements = result;
           this.loadedMeasurements = true;
         }
       )
+    this.sortByDate();
   }
 
-  onSubmit(): void {
-    console.log('test');
-    this.loadedMeasurements = false;
-    if (this.station.value.name) {
-      if (isNaN(this.station.value.name)) {
-        this.someHistoricResultsProper = this.searchCountry(this.station.value.name);
-      }
-      else {
-        this.someHistoricResultsProper = this.searchStation(this.station.value.name);
-      }
+  filter(): void {
+    const filter = this.search.value.filter.toLowerCase();
+    if (filter) {
+      this.sortedMeasurements = this.rawMeasurements.filter(measurement => {
+        if (measurement.station.toLowerCase().includes(filter)) return measurement;
+        if (measurement.country.toLowerCase().includes(filter)) return measurement;
+        if (measurement.date.toString().toLowerCase().includes(filter)) return measurement;
+        return;
+      });
     }
-    else this.someHistoricResultsProper = this.someHistoricResults;
-    console.log('test3');
-    this.loadedMeasurements = true;
+    else this.sortedMeasurements = this.rawMeasurements;
+  }
+
+  sortByStation() {
+    this.sortedMeasurements.sort((a, b) => {
+      if (this.sortSettings[0] === 'Station' && this.sortSettings[1] === 'DESC') 
+        return a.station > b.station ? 1 : a.station < b.station ? -1 : 0;
+      return a.station > b.station ? -1 : a.station < b.station ? 1 : 0;
+    });
+    this.rawMeasurements.sort((a, b) => {
+      if (this.sortSettings[0] === 'Station' && this.sortSettings[1] === 'DESC') 
+        return a.station > b.station ? 1 : a.station < b.station ? -1 : 0;
+      return a.station > b.station ? -1 : a.station < b.station ? 1 : 0;
+    });
+    if (this.sortSettings[0] === 'Station'&& this.sortSettings[1] === 'DESC') this.sortSettings[1] = 'ASC';
+    else this.sortSettings[1] = 'DESC';
+
+    this.sortSettings[0] = 'Station';
+  }
+
+  sortByDate() {
+    this.sortedMeasurements.sort((a, b) => {
+      if (this.sortSettings[0] === 'Date' && this.sortSettings[1] === 'DESC')
+        return new Date(a.date) > new Date(b.date) ? 1 : new Date(a.date) < new Date(b.date) ? -1 : 0;
+      return new Date(a.date) > new Date(b.date) ? -1 : new Date(a.date) < new Date(b.date) ? 1 : 0;
+    });
+    this.rawMeasurements.sort((a, b) => {
+      if (this.sortSettings[0] === 'Date' && this.sortSettings[1] === 'DESC')
+        return new Date(a.date) > new Date(b.date) ? 1 : new Date(a.date) < new Date(b.date) ? -1 : 0;
+      return new Date(a.date) > new Date(b.date) ? -1 : new Date(a.date) < new Date(b.date) ? 1 : 0;
+    })
+    if (this.sortSettings[0] === 'Date'&& this.sortSettings[1] === 'DESC') this.sortSettings[1] = 'ASC';
+    else this.sortSettings[1] = 'DESC';
+
+    this.sortSettings[0] = 'Date';
+  }
+
+  sortByCountry() {
+    this.sortedMeasurements.sort((a, b) => {
+      if (this.sortSettings[0] === 'Country' && this.sortSettings[1] === 'DESC')
+        return a.country > b.country ? -1 : a.country < b.country ? 1 : 0;
+      return a.country > b.country ? 1 : a.country < b.country ? -1 : 0;
+
+    });
+    this.rawMeasurements.sort((a, b) => {
+      if (this.sortSettings[0] === 'Country' && this.sortSettings[1] === 'DESC') 
+        return a.country > b.country ? -1 : a.country < b.country ? 1 : 0;
+      return a.country > b.country ? 1 : a.country < b.country ? -1 : 0;
+    });
+    if (this.sortSettings[0] === 'Country'&& this.sortSettings[1] === 'DESC') this.sortSettings[1] = 'ASC';
+    else this.sortSettings[1] = 'DESC';
+
+    this.sortSettings[0] = 'Country';
+  }
+
+  sortByTemperture() {
+    this.sortedMeasurements.sort((a, b) => {
+      if (this.sortSettings[0] === 'Temp' && this.sortSettings[1] === 'DESC')
+        return a.temp > b.temp ? -1 : a.temp < b.temp ? 1 : 0;
+      return a.temp > b.temp ? 1 : a.temp < b.temp ? -1 : 0;
+    });
+    this.rawMeasurements.sort((a, b) => {
+      if (this.sortSettings[0] === 'Temp' && this.sortSettings[1] === 'DESC') 
+        return a.temp > b.temp ? -1 : a.temp < b.temp ? 1 : 0;
+      return a.temp > b.temp ? 1 : a.temp < b.temp ? -1 : 0;
+    });
+    if (this.sortSettings[0] === 'Temp'&& this.sortSettings[1] === 'DESC') this.sortSettings[1] = 'ASC';
+    else this.sortSettings[1] = 'DESC';
+
+    this.sortSettings[0] = 'Temp';
   }
 
   getStation = (stationnumber: string, measurementDate: Date | null = null) => {
-    const measurement = this.someHistoricResults.find((measurement) => measurement.date === measurementDate && measurement.station === stationnumber)
+    const measurement = this.rawMeasurements.find((measurement) => measurement.date === measurementDate && measurement.station === stationnumber)
     this.selectedMeasurement = measurement ?? null;
   }
-
-  searchCountry = (countryname: string) => this.someHistoricResults.filter(
-    (measurement) => measurement.country == countryname)
-
-
-  searchStation = (stationnumber: string) => this.someHistoricResults.filter(
-    (measurement) => measurement.station == stationnumber)
-
 
   getState(frshtt: string) {
     let res = [];
@@ -104,7 +166,7 @@ export class TemperatureHistoryComponent implements OnInit {
 
   download() {
     const downloadableData: any = [];
-    this.someHistoricResults.forEach(result => {
+    this.rawMeasurements.forEach(result => {
       let resultJSON = {
         'measurement': {
           'station': result['station'],

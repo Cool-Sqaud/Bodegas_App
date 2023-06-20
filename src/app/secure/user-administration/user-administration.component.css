@@ -1,51 +1,102 @@
-/* Search segment */
+
+body {
+  height: calc(100% - 200px);
+}
+
 .flexbox {
   display: flex;
   width: 100%;
+  height: calc(100% - 200px);
+  position: relative;
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-content: flex-start;
 }
 
 .buttons {
   display: flex;
   background-color: lightgray;
-  align-self: stretch;
   align-items: center;
   justify-content: space-evenly;
-  padding: 20px 32px;
+  padding: 12.5px 0px;
   margin: 10px 25px;
-  width: 500px;
+  width: 664px;
   border-radius: 5px;
+}
+
+button {
+  background: rgb(128, 216, 224);
+  border-color: rgb(128, 216, 224);
+  color: #fff;
+  padding: 5px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 500;
+  position: relative;
+}
+
+button:hover {
+  background-color: rgb(68, 194, 206);
+  border-color: rgb(68, 194, 206);
 }
 
 .search{
+  display: grid;
+  align-items: center;
   background-color: lightgray;
+  padding: 10px;
   margin: 10px 25px;
-  width: 636px;
-  padding: 20px 32px;
+  width: 683.2px;
   border-radius: 5px;
   box-shadow: inset;
+  font-size: 16px;
+
+  > form {
+    position: absolute;
+  }
+
+  > button {
+    justify-self: end;
+    position: absolute;
+  }
+
+  > form > input {
+    background-color: lightgray;
+    font-size: 16px;
+    width: 300px;
+    border: 0px;
+    border-bottom: 2px solid rgb(68, 194, 206);
+  }
+
+  > form > input:focus {
+    background-color: rgb(201, 201, 201);
+    outline: none;
+    border-bottom: 2px solid rgb(68, 194, 206);
+  }
 }
 
-input{
-  margin-top: 5px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
+.scrollbar {
+  position: relative;
+  margin: 10px 25px;
+  width: 700px;
+  max-height: 550px;
+  border: 1px solid black;
+  font-size: 18px;
 }
 
-button{
-  margin-top: 5px;
-  font-size: larger;
-}
-
-/* Users segment */
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 700px;
-  margin: 10px 25px;
+  width: 100%;
+}
+
+th {
+  background-color: white;
+  border: 1px solid #dddddd;
+  position: sticky;
+  top: -1px;
 }
 
 td, th {
@@ -58,20 +109,100 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-td:hover{
-  background-color: lightblue;
+tr:hover{
+  background-color: #3d5bf61a
 }
 
-/* Information selected user segment */
+.flex {
+  display: flex;
+  width: calc(100% - 100px);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  
+  > .flex {
+    width: 100%;
+  }
+}
+
+.float {
+  float: left; 
+  margin-top: 5px;
+  width: 350px
+}
+
+.wrapper > div {
+  height: 5px;
+  display: table-row;
+
+  > p {
+    float: left; 
+    margin-top: 5px;
+    width: 200px
+  }
+}
+
+.header {
+  color: #172ead;
+
+  > p {
+    margin-bottom: 0px;
+  }
+}
+
+.country {
+  margin-top: 0px;
+  width: 650px;
+}
+
+.station {
+  margin: 5px 0px;
+}
+
+.date { 
+  margin-top: 0px;
+  color: #5166de; 
+
+  > span {
+    color: black;
+  }
+}
+
+.details {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 250px;
+
+  > p {
+    margin: 1.5px;
+    
+    > span {
+      color: #172ead;
+    }
+  }
+}
+
+hr {
+  margin: 0px;
+}
+
 .selected{
   background-color: lightgray;
   margin: 10px 25px;
-  width: 500px;
+  width: 600px;
+  height: 510px;
   padding: 20px 32px;
   border-radius: 5px;
   box-shadow: inset;
 }
 
+.selected p{
+  font-size: 20px;
+}
+
+.title {
+  text-align: center;
+}
 
 .add-container {
   display: grid;

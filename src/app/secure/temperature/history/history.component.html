@@ -1,100 +1,88 @@
-<body>
-    <div class="heading">
-        <div class="search">
-            <form [formGroup]="station" (ngSubmit)="onSubmit()">
-                <label for="name">Welk station zoekt u?</label><br>
-                <input type="text" formControlName="name"><br>
-            </form>
-            <button (click)="onSubmit()">Zoeken</button>
-        </div>
-        <h1 class="title">History of Stations below 15°C</h1>
-        <div class="buttons">
-            <button (click)="download()">download</button>
-        </div>
+<h1 class="title">History of Stations below 15°C</h1>
+<div class="flexbox">
+    <div class="search">
+        <form class="filter" [formGroup]="search" (ngSubmit)="filter()">
+            <label for="filter">Filter: </label>
+            <input type="text" formControlName="filter">
+        </form>
+        <button (click)="filter()">Search</button>
     </div>
-    <div class="dataView">
-        <mat-grid-list cols="2" rowHeight="700px">
+    <div class="buttons">
+        <button routerLink="..">Go back</button>
+        <button (click)="download()">Download Data</button>
+    </div>
+    <cdk-virtual-scroll-viewport class="scrollbar" itemSize="100">
+        <table>
+            <tr>
+                <th (click)="sortByStation()" [width]="60">Station</th>
+                <th (click)="sortByDate()" [width]="95">Date</th>
+                <th (click)="sortByCountry()">Country</th>
+                <th (click)="sortByTemperture()" [width]="120">Temperature</th>
+            </tr>
+            <tr *ngFor="let result of sortedMeasurements" (click)="getStation(result.station, result.date)">
+                <td>{{ result.station }}</td>
+                <td>{{ result.date }}</td>
+                <td>{{ result.country }}</td>
+                <td style="text-align: right;">{{ result.temp }} °C</td>
+            </tr>
+        </table>
+    </cdk-virtual-scroll-viewport>
+    <div class="selected" *ngIf="!selectedMeasurement">
+        <h2 style="text-align: center;" *ngIf="loadedMeasurements">Select a measurement...</h2>
+    </div>
+    <div class="flex selected" *ngIf="selectedMeasurement">
+        <div class="flex">
             <div>
-                <mat-grid-tile>
-                    <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
-                        <!-- loading... -->
-                        <dl class="example-dl" *ngIf="!loadedMeasurements">
-                            <dd class="example-dt" style="margin-top: 50px;">Loading measurements...</dd>
-                        </dl>
-                        <!-- loaded -->
-                        <dl class="example-dl" *ngIf="loadedMeasurements">
-                            <a *cdkVirtualFor="let measurement of someHistoricResultsProper"  (click)="getStation(measurement.station, measurement.date)">
-                                <dd class="example-dt">Station number: {{measurement.station}}</dd>
-                                <dd class="example-de">Date: {{measurement.date + ' ' +  measurement.time}}</dd>
-                                <dd class="example-dd">Temperature: {{measurement.temp}}°C</dd>
-                                <dd class="example-dd">Country: {{countrySyntax(measurement.country)}}</dd>
-                                <hr>
-                            </a>
-                        </dl>
-                    </cdk-virtual-scroll-viewport>
-                </mat-grid-tile>
+                <h2 class="station">Station number: {{selectedMeasurement.station}}</h2>
+                <p class="date"><span>Date:</span> {{selectedMeasurement.date + ' ' +  selectedMeasurement.time}}</p>
             </div>
-            <mat-grid-tile>
-                <!-- loading... -->
-                <div class="selected" style="height: 507.2px;" *ngIf="!selectedMeasurement">
-                    <h2 style="text-align: center;" *ngIf="loadedMeasurements">Select a measurement...</h2>
-                </div>
-                <!-- loaded -->
-                <div class="flex selected" *ngIf="selectedMeasurement">
-                    <div class="flex">
-                        <div>
-                            <h2 class="station">Station number: {{selectedMeasurement.station}}</h2>
-                            <p class="date"><span>Date:</span> {{selectedMeasurement.date + ' ' +  selectedMeasurement.time}}</p>
-                        </div>
-                        <div class="details">
-                            <p><span>Longitude:</span> {{selectedMeasurement.longitude}}</p>
-                            <p><span>Latitude:</span> {{selectedMeasurement.latitude}}</p>
-                            <p><span>Elevation:</span> {{selectedMeasurement.elevation}}</p>
-                        </div>
-                    </div>
-                    <p class="country"><span>Country:</span> {{countrySyntax(selectedMeasurement.country)}}</p>
-                    <div class="wrapper">
-                        <div class="header">
-                            <p>Temperature: </p>
-                            <p>Dewpoint:</p>
-                            <p>Air Pressure:</p>
-                        </div>
-                        <div>
-                            <p>{{ selectedMeasurement.temp }}°C</p>
-                            <p>{{ selectedMeasurement.dewp }}°C</p>
-                            <p>{{ selectedMeasurement.slp }}Pa</p>
-                        </div>
-                        <div class="header">
-                            <p>Sea level pressure:</p>
-                            <p>Visibility:</p>
-                            <p>Wind Speed:</p>
-                        </div>
-                        <div>
-                            <p>{{ selectedMeasurement.slp }}Pa</p>
-                            <p>{{ selectedMeasurement.visib }}</p>
-                            <p>{{ selectedMeasurement.wdsp }}km/h</p>
-                        </div>
-                        <div class="header">
-                            <p>Rainfall:</p>
-                            <p>Snow Depth:</p>
-                            <p>Cloud Coverage:</p>
-                        </div>
-                        <div>
-                            <p>{{ selectedMeasurement.prcp }}mm</p>
-                            <p>{{ selectedMeasurement.sndp }}mm</p>
-                            <p>{{ selectedMeasurement.cldc }}%</p>
-                        </div>
-                        <div class="header">
-                            <p>Wind Direction:</p>
-                            <p>Miscellaneous:</p>
-                        </div>
-                        <div>
-                            <p>{{ selectedMeasurement.winddir }}° ({{ getDirection(selectedMeasurement.winddir) }})</p>
-                            <p>{{ getState(selectedMeasurement.frshtt) }}</p>
-                        </div>
-                    </div>
-                </div>
-            </mat-grid-tile>
-        </mat-grid-list>
+            <div class="details">
+                <p><span>Longitude:</span> {{selectedMeasurement.longitude}}</p>
+                <p><span>Latitude:</span> {{selectedMeasurement.latitude}}</p>
+                <p><span>Elevation:</span> {{selectedMeasurement.elevation}}</p>
+            </div>
+        </div>
+        <p class="country"><span>Country:</span> {{ selectedMeasurement.country }}</p>
+        <div class="wrapper">
+            <div class="header">
+                <p>Temperature: </p>
+                <p>Dewpoint:</p>
+                <p>Visibility:</p>
+            </div>
+            <div>
+                <p>{{ selectedMeasurement.temp }} °C</p>
+                <p>{{ selectedMeasurement.dewp }} °C</p>
+                <p>{{ selectedMeasurement.visib }}%</p>
+            </div>
+            <div class="header">
+                <p>Air Pressure:</p>
+                <p>Sea level pressure:</p>
+                <p>Wind Speed:</p>
+            </div>
+            <div>
+                <p>{{ selectedMeasurement.stp }} Pa</p>
+                <p>{{ selectedMeasurement.slp }} Pa</p>
+                <p>{{ selectedMeasurement.wdsp }} km/h</p>
+            </div>
+            <div class="header">
+                <p>Rainfall:</p>
+                <p>Snow Depth:</p>
+                <p>Cloud Coverage:</p>
+            </div>
+            <div>
+                <p>{{ selectedMeasurement.prcp }} mm</p>
+                <p>{{ selectedMeasurement.sndp }} mm</p>
+                <p>{{ selectedMeasurement.cldc }}%</p>
+            </div>
+            <div class="header">
+                <p>Wind Direction:</p>
+                <p>Miscellaneous:</p>
+            </div>
+            <div>
+                <p>{{ selectedMeasurement.winddir + '° (' + getDirection(selectedMeasurement.winddir) }})</p>
+                <p>{{ getState(selectedMeasurement.frshtt) }}</p>
+            </div>
+        </div>
     </div>
-</body>
+</div>
+

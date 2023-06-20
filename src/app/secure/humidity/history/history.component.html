@@ -1,24 +1,69 @@
-<h1>Historic Humidity Data</h1>
-<button (click)="download()">Download</button><span><button routerLink=".."> Previous page</button></span>
-<table>
-    <tr>
-      <th>Station</th>
-      <th>Date</th>
-      <th>Country</th>
-      <th>Humidity</th>
-      <th>Temperature (°C)</th>
-      <th>Wind speed (km/h)</th>
-      <th>Rainfall (mm)</th>
-      <th>Overcast (%)</th>
-    </tr>
-    <tr *ngFor="let result of Historic_Humidity_Results">
-      <td>{{ result.station }}</td>
-      <td>{{ result.date }}</td>
-      <td>{{countrySyntax(result.country)}}</td> 
-      <td>{{ result.dewp }}</td>
-      <td>{{ result.temp }}</td>
-      <td>{{ result.wdsp }}</td>
-      <td>{{ result.prcp }}</td>
-      <td>{{ result.cldc }}</td>
-    </tr>
-  </table>
+<h1 class="title">History of Humidity Data</h1>
+<div class="flexbox">
+  <div class="search">
+    <form class="filter" [formGroup]="search" (ngSubmit)="filter()">
+      <label for="filter">Filter: </label>
+      <input type="text" formControlName="filter">
+    </form>
+    <button (click)="filter()">Search</button>
+  </div>
+  <div class="buttons">
+    <button routerLink="..">Go back</button>
+    <button (click)="download()">Download Data</button>
+  </div>
+  <cdk-virtual-scroll-viewport class="scrollbar" itemSize="100">
+    <table>
+      <tr>
+        <th (click)="sortByStation()" [width]="60">Station</th>
+        <th (click)="sortByDate()" [width]="95">Date</th>
+        <th (click)="sortByCountry()">Country</th>
+        <th (click)="sortByHumidity()" [width]="120">Humidity</th>
+      </tr>
+      <tr *ngFor="let result of sortedMeasurements" (click)="getStation(result.station, result.date)">
+        <td>{{ result.station }}</td>
+        <td>{{ result.date }}</td>
+        <td>{{ result.country }}</td>
+        <td style="text-align: right;">{{ getHumidity(result.temp, result.dewp) }} %</td>
+      </tr>
+    </table>
+  </cdk-virtual-scroll-viewport>
+  <div class="selected" *ngIf="!selectedMeasurement">
+    <h2 style="text-align: center;" *ngIf="loadedMeasurements">Select a measurement...</h2>
+  </div>
+  <div class="flex selected" *ngIf="selectedMeasurement">
+    <div class="flex">
+      <div>
+        <h2 class="station">Station number: {{selectedMeasurement.station}}</h2>
+        <p class="date"><span>Date:</span> {{selectedMeasurement.date}}</p>
+      </div>
+      <div class="details">
+        <p><span>Longitude:</span> {{selectedMeasurement.longitude}}</p>
+        <p><span>Latitude:</span> {{selectedMeasurement.latitude}}</p>
+        <p><span>Elevation:</span> {{selectedMeasurement.elevation}}</p>
+      </div>
+    </div>
+    <p class="country"><span>Country:</span> {{ selectedMeasurement.country }}</p>
+    <div class="wrapper">
+      <div class="header">
+        <p>Humidity:</p>
+        <p>Temperature: </p>
+        <p>Dewpoint:</p>
+      </div>
+      <div>
+        <p>{{ getHumidity(selectedMeasurement.temp, selectedMeasurement.dewp) }}%</p>
+        <p>{{ selectedMeasurement.temp }} °C</p>
+        <p>{{ selectedMeasurement.dewp }} °C</p>
+      </div>
+      <div class="header">
+        <p>Wind Speed:</p>
+        <p>Rainfall:</p>
+        <p>Cloud Coverage:</p>
+      </div>
+      <div>
+        <p>{{ selectedMeasurement.wdsp }} km/h</p>
+        <p>{{ selectedMeasurement.prcp }} mm</p>
+        <p>{{ selectedMeasurement.cldc }}%</p>
+      </div>
+    </div>
+  </div>
+</div>

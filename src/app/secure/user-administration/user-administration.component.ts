@@ -17,8 +17,8 @@ export class UserAdministrationComponent implements OnInit {
     email: new FormControl(null),
     password: new FormControl(null),
   });
-  user: FormGroup = new FormGroup({
-    name: new FormControl(null),
+  search: FormGroup = new FormGroup({
+    filter: new FormControl(null),
   });
   usersFound = true;
   loadedUsers = false;
@@ -31,18 +31,6 @@ export class UserAdministrationComponent implements OnInit {
   constructor (
     private userService: UserService,
   ) { }
-
-  show() {
-    document.getElementById('add-container')!.classList.remove('hidden');
-    
-  }
-
-  hide() {
-    document.getElementById('add-container')!.classList.add('hidden');
-    
-  }
-
-  
 
   ngOnInit(): void {
     this.userService.getAllUsers()
@@ -64,17 +52,19 @@ export class UserAdministrationComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-    // console.log(this.station.value.number);
-    this.loadedUsers = false;
-    if (this.user.value.name) this.postedUsers = this.search(this.user.value.name);
+  filter() {
+    const filter = this.search.value.filter.toLowerCase();
+    if (filter) {
+      this.postedUsers = this.rawUsers.filter(user => {
+        if (user.first_name.concat(' ', user.last_name).toLowerCase().includes(filter)) return user;
+        if (user.email.toLowerCase().includes(filter)) return user;
+        if (user.id.toString().toLowerCase().includes(filter)) return user;
+        return;
+      });
+    }
     else this.postedUsers = this.rawUsers;
-    this.loadedUsers = true;
   }
 
-  search = (filter: string) => this.rawUsers.filter(
-    (user) => user.first_name.concat(' ', user.last_name).toLowerCase().includes(filter.toLowerCase()))
-  
   view(id: number) {
     this.rawUsers.forEach(user => {
       if (user.id == id) this.selectedUser = user;
@@ -92,8 +82,6 @@ export class UserAdministrationComponent implements OnInit {
   }
 
   onCreate(): void {
-    //if (this.selectedUser.role_id > 1)  return;
-
     const data ={
       role_id : this.useradd.value.role_id,
       first_name : this.useradd.value.first_name,
@@ -101,25 +89,15 @@ export class UserAdministrationComponent implements OnInit {
       email : this.useradd.value.email,
       password : this.useradd.value.password
     }
-    console.log(data)
     this.userService.adminAddUser(data).subscribe(res => {
       if(res){
-        this.rawUsers.push(res as User)
-        this.hide()
+        this.rawUsers.push(res as User);
+        document.getElementById('add-container')!.classList.add('hidden');
       }
-    })
+    });
   }
 
   onEdit(): void {
 
   }
 }
-
-// const newUser = {
-//   role_id: 1,
-//   first_name: 'uifwahui',
-//   last_name: 'hrgehuiijwioegjw',
-//   email: 'fwahjufwauihf@mail.com',
-//   password: 'password'
-// }
-// this.userService.adminAddUser(newUser);
