@@ -102,7 +102,12 @@ export class UserAdministrationComponent implements OnInit {
       password : this.useradd.value.password
     }
     console.log(data)
-    this.userService.adminAddUser(data).subscribe(res => console.log(res))
+    this.userService.adminAddUser(data).subscribe(res => {
+      if(res){
+        this.rawUsers.push(res as User)
+        this.hide()
+      }
+    })
   }
 
   onEdit(): void {
