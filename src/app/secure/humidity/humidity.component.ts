@@ -9,7 +9,8 @@ import { BodegasService } from 'src/app/_services/bodegas.service';
 export class HumidityComponent implements OnInit {
 
   loadedMeasurements = false;
-  Results: Array<any> = [];
+  Humidity_Results: Array<any> = [];
+  All_Measurements: Array<any> = [];
   HistoricResults: Array<any> = [];
   selectedMeasurement: any | null = null;
 
@@ -21,14 +22,14 @@ export class HumidityComponent implements OnInit {
     this.bodegasService.getHumidityMeasurements()
         .subscribe(
           (result: any) => {
-            this.Results = result;
+            this.Humidity_Results = result;
             console.log(result);
           } 
-        )
+        )   
   }
 
   getStation = (stationnumber: string, measurementDate: string | null = null) => {
-    const measurement = this.Results.find((measurement) => measurement.date === measurementDate && measurement.station === stationnumber)
+    const measurement = this.Humidity_Results.find((measurement) => measurement.date === measurementDate && measurement.station === stationnumber)
     this.selectedMeasurement = measurement ?? null;
   }
 }
