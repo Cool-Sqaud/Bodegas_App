@@ -1,5 +1,5 @@
 <!--  -->
-<div *ngIf="!loadedUsers" class="flexbox">
+<div class="flexbox">
         <!-- Search segment -->
         <div class="search">
             <form [formGroup]="user" (ngSubmit)="onSubmit()">
@@ -20,43 +20,18 @@
                 <th [width]="140">First name</th>
                 <th [width]="140">Last name</th>
             </tr>
+            <tr *ngFor="let result of postedUsers" (click)="view(result.id)">
+                <td >{{result.id}}</td>
+                <td>{{result.email}}</td>
+                <td>{{result.first_name}}</td>
+                <td>{{result.last_name}}</td>
+            </tr>
         </table>
-    <div class="selected">
+    <div class="selected" *ngIf="!loadedUsers">
         <h1>Data Employee</h1>
         <p>Loading Employee...</p>
     </div>
-</div>
-<div *ngIf="loadedUsers" class="flexbox">
-    <!-- Search segment -->
-    <div class="search">
-        <form [formGroup]="user" (ngSubmit)="onSubmit()">
-            <label for="name"><strong>Which employee are you looking for?</strong></label><br>
-            <input type="text" formControlName="name"><br>
-        </form>
-        <button (click)="onSubmit()">Search</button>
-    </div>
-    <div class="buttons">
-        <button>Something</button>
-        <button>Something Else</button>
-    </div>
-    <!-- Users segment -->
-    <table>
-        <tr>
-            <th [width]="70">User ID</th>
-            <th>Email</th>
-            <th [width]="140">First name</th>
-            <th [width]="140">Last name</th>
-        </tr>
-
-        <tr *ngFor="let result of postedUsers" (click)="view(result.id)">
-            <td >{{result.id}}</td>
-            <td>{{result.email}}</td>
-            <td>{{result.first_name}}</td>
-            <td>{{result.last_name}}</td>
-        </tr>
-    </table>
-<!-- Information selected user segment -->
-    <div class="selected">
+    <div class="selected" *ngIf="loadedUsers">
         <h1>Data Employee</h1>
         <p>Employee ID: {{postedUsers[selectedUser].id}}</p>
         <p>Full name: {{postedUsers[selectedUser].first_name + ' ' + postedUsers[selectedUser].last_name}}</p>
