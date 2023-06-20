@@ -1,0 +1,24 @@
+<h1>Historic Humidity Data</h1>
+<button (click)="download()">Download</button><span><button routerLink=".."> Previous page</button></span>
+<table>
+    <tr>
+      <th>Station</th>
+      <th>Date</th>
+      <th>Country</th>
+      <th>Humidity</th>
+      <th>Temperature (°C)</th>
+      <th>Wind speed (km/h)</th>
+      <th>Rainfall (mm)</th>
+      <th>Overcast (%)</th>
+    </tr>
+    <tr *ngFor="let result of Historic_Humidity_Results">
+      <td>{{ result.station }}</td>
+      <td>{{ result.date }}</td>
+      <td>{{result.country_code}}</td> 
+      <td>{{ result.avg_dewp }}</td>
+      <td>{{ result.temp }}</td>
+      <td>{{ result.wdsp }}</td>
+      <td>{{ result.prcp }}</td>
+      <td>{{ result.cldc }}</td>
+    </tr>
+  </table>

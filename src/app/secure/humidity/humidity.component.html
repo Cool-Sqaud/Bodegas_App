@@ -1,4 +1,5 @@
 <h2>Top 10 most humid station</h2>
+<button (click)="download()">Download</button><span><button routerLink="historic">Historic Data</button></span>
 <table>
   <tr>
     <th>Station</th>
@@ -11,11 +12,9 @@
     <th>Overcast (%)</th>
   </tr>
   <tr *ngFor="let result of Humidity_Results" (click)="getStation(result.station, result.date)">
-    <td>{{ result.avg_dewp }}</td>
     <td>{{ result.station }}</td>
-    <td>{{ result.country_code }}</td>
     <td>{{ result.date }}</td>
-    <td>{{ countrySyntax(result.country) }}</td>
+    <td>{{countrySyntax(result.country_code)}}</td> 
     <td>{{ result.avg_dewp }}</td>
     <td>{{ result.temp }}</td>
     <td>{{ result.wdsp }}</td>
@@ -25,7 +24,7 @@
 </table>
 
 <div class="selected" *ngIf="selectedMeasurement">
-  <table>
+  <!-- <table>
     <tr>
       <th>Humidity</th>
       <th>Station</th>
@@ -46,4 +45,6 @@
       <td>{{ result.prcp }}</td>
       <td>{{ result.cldc }}</td>
     </tr>
-  </table>
+  </table> -->
+
+

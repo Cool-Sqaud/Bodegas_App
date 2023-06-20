@@ -3,16 +3,13 @@ import { BodegasService } from 'src/app/_services/bodegas.service';
 import { DownloadService } from 'src/app/_services/download.service';
 
 @Component({
-  selector: 'app-humidity',
-  templateUrl: './humidity.component.html',
-  styleUrls: ['./humidity.component.css']
+  selector: 'app-history',
+  templateUrl: './history.component.html',
+  styleUrls: ['./history.component.css']
 })
-export class HumidityComponent implements OnInit {
+export class HistoryComponent {
 
-  loadedMeasurements = false;
-  Humidity_Results: Array<any> = [];
-  All_Measurements: Array<any> = [];
-  selectedMeasurement: any | null = null;
+  Historic_Humidity_Results: Array<any> = [];
 
   constructor(
     private bodegasService: BodegasService,
@@ -20,28 +17,17 @@ export class HumidityComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.bodegasService.getHumidityMeasurements()
+    this.bodegasService.getHistoricHumidityMeasurements()
         .subscribe(
           (result: any) => {
-            this.Humidity_Results = result;
+            this.Historic_Humidity_Results = result;
             console.log(result);
           } 
         )   
   }
-
-  getStation = (stationnumber: string, measurementDate: string | null = null) => {
-    const measurement = this.Humidity_Results.find((measurement) => measurement.date === measurementDate && measurement.station === stationnumber)
-    this.selectedMeasurement = measurement ?? null;
-  }
-
-  countrySyntax(country: string) {
-    const split = country.split(',');
-    return [split[1], split[0]].join(' ').slice(1);
-  }
-
   download() {
     const downloadableData: any = [];
-    this.Humidity_Results.forEach(result => {
+    this.Historic_Humidity_Results.forEach(result => {
       let resultJSON = { 'measurement': {
           'avg_dewp': result['avg_dewp'], 
           'station': result['station'],
@@ -56,4 +42,5 @@ export class HumidityComponent implements OnInit {
     })
     this.downloadService.downloadJSON(downloadableData, 'average-humidity');
   }
+
 }
