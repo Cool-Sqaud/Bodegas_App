@@ -9,8 +9,9 @@
             <button (click)="onSubmit()">Search</button>
         </div>
         <div class="buttons">
-            <button>Something</button>
-            <button>Something Else</button>
+            <button (click)="onCreate()">➕ Add</button>
+            <button (click)="onDelete()">➖ Delete</button>
+            <button (click)="onEdit()">✍️ Edit</button>
         </div>
         <!-- Users segment -->
         <table>
@@ -33,13 +34,13 @@
     </div>
     <div class="selected" *ngIf="loadedUsers">
         <h1>Data Employee</h1>
-        <p>Employee ID: {{postedUsers[selectedUser].id}}</p>
-        <p>Full name: {{postedUsers[selectedUser].first_name + ' ' + postedUsers[selectedUser].last_name}}</p>
-        <p>First name: {{postedUsers[selectedUser].first_name}}</p>
-        <p>Last name: {{postedUsers[selectedUser].last_name}}</p>
-        <p>Email: {{postedUsers[selectedUser].email}}</p>
-        <p>Made at: {{postedUsers[selectedUser].created_at.slice(0, 10)}}</p>
-        <p>Last updated: {{postedUsers[selectedUser].updated_at.slice(0, 10)}}</p>
+        <p>Employee ID: {{selectedUser.id}}</p>
+        <p>Full name: {{selectedUser.first_name + ' ' + selectedUser.last_name}}</p>
+        <p>First name: {{selectedUser.first_name}}</p>
+        <p>Last name: {{selectedUser.last_name}}</p>
+        <p>Email: {{selectedUser.email}}</p>
+        <!-- <p>Made at: {{selectedUser.created_at.slice(0, 10)}}</p> -->
+        <!-- <p>Last updated: {{selectedUser.updated_at.slice(0, 10)}}</p> -->
     </div>
 </div>
 

@@ -51,6 +51,12 @@ export class TemperatureComponent implements OnInit {
     this.loadedMeasurements = true;
   }
 
+  deleteUSer(): void {
+    console.log('testdedikkehuts');
+    
+  }
+
+
   searchCountry = (countryname: string) => this.someResults.filter(
     (measurement) => measurement.country == countryname)
   

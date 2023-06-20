@@ -15,7 +15,7 @@ export class UserAdministrationComponent implements OnInit {
   usersFound = true;
   loadedUsers = false;
   appHeight = window.innerHeight - 200;
-  selectedUser = 0;
+  selectedUser!: User;
   
   rawUsers: Array<User> = [];
   postedUsers: Array<User> = [];
@@ -29,8 +29,8 @@ export class UserAdministrationComponent implements OnInit {
     .subscribe(result => {
       if (!result || result === true) this.usersFound = false;  
       else {
-        this.rawUsers = result;
-        this.postedUsers = result;
+        this.rawUsers = this.postedUsers = result;
+        this.selectedUser = result[0];
       }
       console.log(this.postedUsers)
       this.loadedUsers = true;
@@ -48,8 +48,24 @@ export class UserAdministrationComponent implements OnInit {
   search = (filter: string) => this.rawUsers.filter(
     (user) => user.first_name.concat(' ', user.last_name).toLowerCase().includes(filter.toLowerCase()))
   
-  view = (id: number) => this.selectedUser = id-1;
+  view(id: number) {
+    this.rawUsers.forEach(user => {
+      if (user.id == id) this.selectedUser = user;
+    })
+  }
 
+  onDelete(): void {
+  if (this.selectedUser.role_id > 1)  return;
+    this.userService.adminDeleteUser(this.selectedUser.id).subscribe(res => console.log(res))
+  }
+
+  onCreate(): void {
+
+  }
+
+  onEdit(): void {
+
+  }
 }
 
 // const newUser = {
