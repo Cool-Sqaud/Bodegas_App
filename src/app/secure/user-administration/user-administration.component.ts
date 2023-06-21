@@ -24,6 +24,8 @@ export class UserAdministrationComponent implements OnInit {
   loadedUsers = false;
   appHeight = window.innerHeight - 200;
   selectedUser!: User;
+
+  sortSettings: [String, String] = ['Id', 'DESC'];
   
   rawUsers: Array<User> = [];
   postedUsers: Array<User> = [];
@@ -56,6 +58,8 @@ export class UserAdministrationComponent implements OnInit {
     const filter = this.search.value.filter.toLowerCase();
     if (filter) {
       this.postedUsers = this.rawUsers.filter(user => {
+        if (filter === 'user') return user.role_id === 0 ? user : null;
+        if (filter === 'admin') return user.role_id > 0 ? user : null;
         if (user.first_name.concat(' ', user.last_name).toLowerCase().includes(filter)) return user;
         if (user.email.toLowerCase().includes(filter)) return user;
         if (user.id.toString().toLowerCase().includes(filter)) return user;
@@ -63,6 +67,85 @@ export class UserAdministrationComponent implements OnInit {
       });
     }
     else this.postedUsers = this.rawUsers;
+  }
+
+  sortById() {
+    this.postedUsers.sort((a, b) => {
+      if (this.sortSettings[0] === 'Id' && this.sortSettings[1] === 'DESC') 
+        return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
+      return a.id > b.id ? 1 : a.id < b.id ? -1 : 0;
+    });
+    this.rawUsers.sort((a, b) => {
+      if (this.sortSettings[0] === 'Id' && this.sortSettings[1] === 'DESC') 
+        return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
+      return a.id > b.id ? 1 : a.id < b.id ? -1 : 0;
+    });
+    if (this.sortSettings[0] === 'Id'&& this.sortSettings[1] === 'DESC') this.sortSettings[1] = 'ASC';
+    else this.sortSettings[1] = 'DESC';
+
+    this.sortSettings[0] = 'Id';
+  }
+
+  sortByEmail() {
+    this.postedUsers.sort((a, b) => {
+      if (this.sortSettings[0] === 'Email' && this.sortSettings[1] === 'DESC') 
+        return a.email > b.email ? -1 : a.email < b.email ? 1 : 0;
+      return a.email > b.email ? 1 : a.email < b.email ? -1 : 0;
+    });
+    this.rawUsers.sort((a, b) => {
+      if (this.sortSettings[0] === 'Email' && this.sortSettings[1] === 'DESC') 
+        return a.email > b.email ? -1 : a.email < b.email ? 1 : 0;
+      return a.email > b.email ? 1 : a.email < b.email ? -1 : 0;
+    });
+    if (this.sortSettings[0] === 'Email'&& this.sortSettings[1] === 'DESC') this.sortSettings[1] = 'ASC';
+    else this.sortSettings[1] = 'DESC';
+
+    this.sortSettings[0] = 'Email';
+  }
+
+  sortByFirstName() {
+    this.postedUsers.sort((a, b) => {
+      const [aFirst, bFirst] = [a.first_name.toLowerCase(), b.first_name.toLowerCase()];
+      if (this.sortSettings[0] === 'First Name' && this.sortSettings[1] === 'DESC') 
+        return aFirst > bFirst ? -1 : aFirst < bFirst ? 1 : 0;
+      return aFirst > bFirst ? 1 : aFirst < bFirst ? -1 : 0;
+    });
+    this.rawUsers.sort((a, b) => {
+      const [aFirst, bFirst] = [a.first_name.toLowerCase(), b.first_name.toLowerCase()];
+      if (this.sortSettings[0] === 'First Name' && this.sortSettings[1] === 'DESC') 
+        return aFirst > bFirst ? -1 : aFirst < bFirst ? 1 : 0;
+      return aFirst > bFirst ? 1 : aFirst < bFirst ? -1 : 0;
+    });
+    if (this.sortSettings[0] === 'First Name'&& this.sortSettings[1] === 'DESC') this.sortSettings[1] = 'ASC';
+    else this.sortSettings[1] = 'DESC';
+
+    this.sortSettings[0] = 'First Name';
+  }
+
+  sortByLastName() {
+    this.postedUsers.sort((a, b) => {
+      const [aLast, bLast] = [a.last_name.toLowerCase(), b.last_name.toLowerCase()];
+      if (this.sortSettings[0] === 'Last Name' && this.sortSettings[1] === 'DESC') 
+        return aLast > bLast ? -1 : aLast < bLast ? 1 : 0;
+      return aLast > bLast ? 1 : aLast < bLast ? -1 : 0;
+    });
+    this.rawUsers.sort((a, b) => {
+      const [aLast, bLast] = [a.last_name.toLowerCase(), b.last_name.toLowerCase()];
+      if (this.sortSettings[0] === 'Last Name' && this.sortSettings[1] === 'DESC') 
+        return aLast > bLast ? -1 : aLast < bLast ? 1 : 0;
+      return aLast > bLast ? 1 : aLast < bLast ? -1 : 0;
+    });
+    if (this.sortSettings[0] === 'Last Name'&& this.sortSettings[1] === 'DESC') this.sortSettings[1] = 'ASC';
+    else this.sortSettings[1] = 'DESC';
+
+    this.sortSettings[0] = 'Last Name';
+  }
+
+  getRoleName(role: number) {
+    if (role === 0) return "User";
+    if (role === 1) return "Admin";
+    if (role === 2) return "Super Admin";
+    return "Undefined"
   }
 
   view(id: number) {

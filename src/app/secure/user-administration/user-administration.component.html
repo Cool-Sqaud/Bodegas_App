@@ -32,16 +32,20 @@
         <cdk-virtual-scroll-viewport class="scrollbar" itemSize="100">
             <table>
                 <tr>
-                    <th [width]="70">User ID</th>
-                    <th>Email</th>
-                    <th [width]="140">First name</th>
-                    <th [width]="140">Last name</th>
+                    <th (click)="sortById()" [width]="70">User ID</th>
+                    <th (click)="sortByEmail()">Email</th>
+                    <th (click)="sortByFirstName()" [width]="140">First name</th>
+                    <th (click)="sortByLastName()" [width]="140">Last name</th>
                 </tr>
                 <tr *ngFor="let result of postedUsers" (click)="view(result.id)">
-                    <td >{{result.id}}</td>
-                    <td>{{result.email}}</td>
-                    <td>{{result.first_name}}</td>
-                    <td>{{result.last_name}}</td>
+                    <td *ngIf="result.role_id === 0">{{result.id}}</td>
+                    <td *ngIf="result.role_id === 0">{{result.email}}</td>
+                    <td *ngIf="result.role_id === 0">{{result.first_name}}</td>
+                    <td *ngIf="result.role_id === 0">{{result.last_name}}</td>
+                    <td *ngIf="result.role_id !== 0" style="background-color: rgba(218, 165, 32, 0.2);">{{result.id}}</td>
+                    <td *ngIf="result.role_id !== 0" style="background-color: rgba(218, 165, 32, 0.2);">{{result.email}}</td>
+                    <td *ngIf="result.role_id !== 0" style="background-color: rgba(218, 165, 32, 0.2);">{{result.first_name}}</td>
+                    <td *ngIf="result.role_id !== 0" style="background-color: rgba(218, 165, 32, 0.2);">{{result.last_name}}</td>
                 </tr>
             </table>
         </cdk-virtual-scroll-viewport>
@@ -55,8 +59,8 @@
         <p>Full name: {{selectedUser.first_name + ' ' + selectedUser.last_name}}</p>
         <p>First name: {{selectedUser.first_name}}</p>
         <p>Last name: {{selectedUser.last_name}}</p>
+        <p>Role: {{getRoleName(selectedUser.role_id)}}</p>
         <p>Email: {{selectedUser.email}}</p>
-        <p>Role: {{selectedUser.role_id}}</p>
         <!-- <p>Made at: {{selectedUser.created_at.slice(0, 10)}}</p> -->
         <!-- <p>Last updated: {{selectedUser.updated_at.slice(0, 10)}}</p> -->
     </div>
