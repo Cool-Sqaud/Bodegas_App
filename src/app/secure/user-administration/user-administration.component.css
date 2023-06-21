@@ -72,6 +72,10 @@ body {
   margin: 10px 25px;
   width: 664px;
   border-radius: 5px;
+
+  > button > span {
+    font-size: 17px;
+  }
 }
 
 button {
