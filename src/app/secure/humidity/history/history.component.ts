@@ -37,7 +37,18 @@ export class HistoryComponent {
             this.rawMeasurements.sort((a, b) => {
               const [aDate, bDate] = [new Date(a.date), new Date(b.date)];
               return aDate > bDate ? -1 : aDate < bDate ? 1 : a.humidity > b.humidity ? -1 : a.humidity < b.humidity ? 1 : 0;
-            })
+            }) // Sort by most humidity per date
+            let dateCounter = 0;
+            const dateObj = new Date();
+            let previousDate = `${dateObj.getUTCFullYear()}-0${dateObj.getUTCMonth() + 1}-${dateObj.getUTCDate()}`;
+            this.sortedMeasurements = this.rawMeasurements = this.rawMeasurements.filter(measurement => {
+              if (dateCounter >= 10) return;
+              if (previousDate > measurement.date) {
+                previousDate = measurement.date
+                dateCounter = 1;
+              } else dateCounter++;
+              return measurement
+            });
             this.sortedMeasurements = this.rawMeasurements;
             this.loadedMeasurements = true;
           }
