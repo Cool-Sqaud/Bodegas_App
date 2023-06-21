@@ -150,6 +150,19 @@ export class HistoryComponent {
     return ((100 * (a / b)) % 100).toFixed(2) // % 100 Makes it look real
   }
 
+  getState(frshtt: string) {
+    let res = [];
+    if (frshtt[0] === '1') res.push('Fog');
+    if (frshtt[1] === '1') res.push('Raining');
+    if (frshtt[2] === '1') res.push('Snowing');
+    if (frshtt[3] === '1') res.push('Hail');
+    if (frshtt[4] === '1') res.push('Thunder');
+    if (frshtt[5] === '1') res.push('Tornado');
+
+    if (res.length === 0) return 'None';
+    else return res.join(', ');
+  }
+
   download() {
     const downloadableData: any = [];
     this.rawMeasurements.forEach(result => {

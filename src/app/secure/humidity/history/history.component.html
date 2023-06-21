@@ -57,12 +57,12 @@
       <div class="header">
         <p>Wind Speed:</p>
         <p>Rainfall:</p>
-        <p>Cloud Coverage:</p>
+        <p>Miscellaneous:</p>
       </div>
       <div>
         <p>{{ selectedMeasurement.wdsp }} km/h</p>
         <p>{{ selectedMeasurement.prcp }} mm</p>
-        <p>{{ selectedMeasurement.cldc }}%</p>
+        <p>{{ getState(selectedMeasurement.frshtt) }}</p>
       </div>
     </div>
   </div>
