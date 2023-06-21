@@ -31,6 +31,7 @@ export class HistoryComponent {
           (result: any) => {
             result.forEach((measurement: any) => {
               measurement.country = this.countrySyntax(measurement.country);
+              measurement.humidity = this.getHumidity(measurement.temp, measurement.dewp)
             });
             this.rawMeasurements = this.sortedMeasurements = result;
             this.loadedMeasurements = true;
@@ -105,18 +106,14 @@ export class HistoryComponent {
 
   sortByHumidity() {
     this.sortedMeasurements.sort((a, b) => {
-      const hum1 = this.getHumidity(a.temp, a.dewp);
-      const hum2 = this.getHumidity(b.temp, b.dewp);
       if (this.sortSettings[0] === 'Humidity' && this.sortSettings[1] === 'DESC')
-        return hum1 > hum2 ? 1 : hum1 < hum2 ? -1 : 0;
-      return hum1 > hum2 ? -1 : hum1 < hum2 ? 1 : 0;
+        return a.humidity > b.humidity ? 1 : a.humidity < b.humidity ? -1 : 0;
+      return a.humidity > b.humidity ? -1 : a.humidity < b.humidity ? 1 : 0;
     });
     this.rawMeasurements.sort((a, b) => {
-      const hum1 = this.getHumidity(a.temp, a.dewp);
-      const hum2 = this.getHumidity(b.temp, b.dewp);
       if (this.sortSettings[0] === 'Humidity' && this.sortSettings[1] === 'DESC') 
-        return hum1 > hum2 ? 1 : hum1 < hum2 ? -1 : 0;
-      return hum1 > hum2 ? -1 : hum1 < hum2 ? 1 : 0;
+        return a.humidity > b.humidity ? 1 : a.humidity < b.humidity ? -1 : 0;
+      return a.humidity > b.humidity ? -1 : a.humidity < b.humidity ? 1 : 0;
     });
     if (this.sortSettings[0] === 'Humidity'&& this.sortSettings[1] === 'DESC') this.sortSettings[1] = 'ASC';
     else this.sortSettings[1] = 'DESC';
@@ -127,39 +124,6 @@ export class HistoryComponent {
   getStation = (stationnumber: string, measurementDate: Date | null = null) => {
     const measurement = this.rawMeasurements.find((measurement) => measurement.date === measurementDate && measurement.station === stationnumber)
     this.selectedMeasurement = measurement ?? null;
-  }
-
-  getState(frshtt: string) {
-    let res = [];
-    if (frshtt[0] === '1') res.push('Fog');
-    if (frshtt[1] === '1') res.push('Raining');
-    if (frshtt[2] === '1') res.push('Snowing');
-    if (frshtt[3] === '1') res.push('Hail');
-    if (frshtt[4] === '1') res.push('Thunder');
-    if (frshtt[5] === '1') res.push('Tornado');
-
-    if (res.length === 0) return 'None';
-    else return res.join(', ');
-  }
-
-  getDirection(angle: number) {
-    if (angle === null) return "Unknown"
-    if (angle >= 348.75 || angle < 11.25) return "N";
-    if (angle < 33.75) return "NNE";
-    if (angle < 56.25) return "NE";
-    if (angle < 78.75) return "ENE";
-    if (angle < 101.25) return "E";
-    if (angle < 123.75) return "ESE";
-    if (angle < 146.25) return "SE";
-    if (angle < 168.75) return "SSE";
-    if (angle < 191.25) return "S";
-    if (angle < 213.75) return "SSW";
-    if (angle < 236.25) return "SW";
-    if (angle < 258.75) return "WSW";
-    if (angle < 281.25) return "W";
-    if (angle < 303.75) return "WNW";
-    if (angle < 326.25) return "NW";
-    return "NNW";
   }
 
   // This doesnt actually work because dewpoint and temperature are fantasy values
@@ -173,15 +137,23 @@ export class HistoryComponent {
     const downloadableData: any = [];
     this.rawMeasurements.forEach(result => {
       let resultJSON = { 'measurement': {
-          'avg_dewp': result['avg_dewp'], 
-          'station': result['station'],
-          'country_code': result['country_code'],
-          'date': result['date'],
+        'station': result['station'],
+        'date': result['date'],
+        'location': {
+          'country': result['country'],
+          'longitude': result['longitude'],
+          'latitude': result['latitude'],
+          'elevation' : result['elevation'],
+        },
+        'humidity': result['humidity'],
+        'remaining-data': {
           'temp': result['temp'],
+          'dewp': result['dewp'],
           'wdsp': result['wdsp'],
           'prcp': result['prcp'],
           'cldc': result['cldc']
-        }};
+        }
+      }};
       downloadableData.push(resultJSON);
     })
     this.downloadService.downloadJSON(downloadableData, 'humidity');

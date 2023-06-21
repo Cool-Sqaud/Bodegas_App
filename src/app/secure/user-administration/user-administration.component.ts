@@ -75,6 +75,14 @@ export class UserAdministrationComponent implements OnInit {
   if (this.selectedUser.role_id > 1)  return;
   if (confirm('Delete user: ' + this.selectedUser.first_name + ' ' + this.selectedUser.last_name + '?'))
     this.userService.adminDeleteUser(this.selectedUser.id).subscribe(res => console.log(res))
+
+    for (let i = 0; i < this.rawUsers.length; i++) {
+      if (this.rawUsers[i].id === this.selectedUser.id) {
+        this.rawUsers.splice(i, 1);
+        this.filter();
+        return;
+      }
+    }
   }
 
   onCreate_Pop_Up(): void {
@@ -92,6 +100,7 @@ export class UserAdministrationComponent implements OnInit {
     this.userService.adminAddUser(data).subscribe(res => {
       if(res){
         this.rawUsers.push(res as User);
+        this.filter();
         document.getElementById('add-container')!.classList.add('hidden');
       }
     });

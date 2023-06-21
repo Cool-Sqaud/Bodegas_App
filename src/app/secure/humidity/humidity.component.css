@@ -82,6 +82,7 @@ button:hover {
   margin: 10px 25px;
   width: 700px;
   max-height: 413.6px;
+  overflow: hidden;
   border: 1px solid black;
   font-size: 18px;
 }

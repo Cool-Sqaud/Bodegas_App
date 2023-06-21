@@ -81,7 +81,7 @@ button:hover {
   position: relative;
   margin: 10px 25px;
   width: 700px;
-  max-height: 550px;
+  max-height: 340px;
   border: 1px solid black;
   font-size: 18px;
 }
@@ -190,7 +190,7 @@ hr {
   background-color: lightgray;
   margin: 10px 25px;
   width: 600px;
-  height: 510px;
+  height: 300px;
   padding: 20px 32px;
   border-radius: 5px;
   box-shadow: inset;

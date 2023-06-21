@@ -23,7 +23,7 @@
         <td>{{ result.station }}</td>
         <td>{{ result.date }}</td>
         <td>{{ result.country }}</td>
-        <td style="text-align: right;">{{ getHumidity(result.temp, result.dewp) }} %</td>
+        <td style="text-align: right;">{{ result.humidity }} %</td>
       </tr>
     </table>
   </cdk-virtual-scroll-viewport>
@@ -50,7 +50,7 @@
         <p>Dewpoint:</p>
       </div>
       <div>
-        <p>{{ getHumidity(selectedMeasurement.temp, selectedMeasurement.dewp) }}%</p>
+        <p>{{ selectedMeasurement.humidity }}%</p>
         <p>{{ selectedMeasurement.temp }} °C</p>
         <p>{{ selectedMeasurement.dewp }} °C</p>
       </div>
