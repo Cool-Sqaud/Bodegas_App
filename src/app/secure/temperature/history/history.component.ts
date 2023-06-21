@@ -31,7 +31,9 @@ export class TemperatureHistoryComponent implements OnInit {
     this.bodegasService.getHistoricTemperatureMeasurements()
       .subscribe(
         (result: any) => {
-          
+          result.forEach((measurement: any) => {
+            measurement.country = this.countrySyntax(measurement.country);
+          });
           this.rawMeasurements = this.sortedMeasurements = result;
           this.loadedMeasurements = true;
         }

@@ -33,11 +33,15 @@ export class HistoryComponent {
               measurement.country = this.countrySyntax(measurement.country);
               measurement.humidity = this.getHumidity(measurement.temp, measurement.dewp)
             });
-            this.rawMeasurements = this.sortedMeasurements = result;
+            this.rawMeasurements = result;
+            this.rawMeasurements.sort((a, b) => {
+              const [aDate, bDate] = [new Date(a.date), new Date(b.date)];
+              return aDate > bDate ? -1 : aDate < bDate ? 1 : a.humidity > b.humidity ? -1 : a.humidity < b.humidity ? 1 : 0;
+            })
+            this.sortedMeasurements = this.rawMeasurements;
             this.loadedMeasurements = true;
-          } 
-        )   
-  }
+          }
+  )}
 
   filter(): void {
     const filter = this.search.value.filter.toLowerCase();
@@ -71,14 +75,16 @@ export class HistoryComponent {
 
   sortByDate() {
     this.sortedMeasurements.sort((a, b) => {
+      const [aDate, bDate] = [new Date(a.date), new Date(b.date)];
       if (this.sortSettings[0] === 'Date' && this.sortSettings[1] === 'DESC')
-        return new Date(a.date) > new Date(b.date) ? 1 : new Date(a.date) < new Date(b.date) ? -1 : 0;
-      return new Date(a.date) > new Date(b.date) ? -1 : new Date(a.date) < new Date(b.date) ? 1 : 0;
+        return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
+      return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
     });
     this.rawMeasurements.sort((a, b) => {
+      const [aDate, bDate] = [new Date(a.date), new Date(b.date)];
       if (this.sortSettings[0] === 'Date' && this.sortSettings[1] === 'DESC')
-        return new Date(a.date) > new Date(b.date) ? 1 : new Date(a.date) < new Date(b.date) ? -1 : 0;
-      return new Date(a.date) > new Date(b.date) ? -1 : new Date(a.date) < new Date(b.date) ? 1 : 0;
+        return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
+      return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
     })
     if (this.sortSettings[0] === 'Date'&& this.sortSettings[1] === 'DESC') this.sortSettings[1] = 'ASC';
     else this.sortSettings[1] = 'DESC';
