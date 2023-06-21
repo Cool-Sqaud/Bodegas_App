@@ -19,7 +19,7 @@
 <div class='flexbox'>
         <div class="search">
             <form [formGroup]="search" (ngSubmit)="filter()">
-                <label for="filter"><strong>Filter:</strong></label>
+                <label for="filter">Filter:</label>
                 <input type="text" formControlName="filter">
             </form>
             <button (click)="filter()">Search</button>

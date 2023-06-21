@@ -32,7 +32,7 @@ button {
   padding: 5px 16px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   position: relative;
 }
@@ -51,7 +51,7 @@ button:hover {
   width: 683.2px;
   border-radius: 5px;
   box-shadow: inset;
-  font-size: 16px;
+  font-size: 20px;
 
   > form {
     position: absolute;
@@ -64,16 +64,15 @@ button:hover {
 
   > form > input {
     background-color: lightgray;
-    font-size: 16px;
+    font-size: 18px;
     width: 300px;
     border: 0px;
     border-bottom: 2px solid rgb(68, 194, 206);
   }
 
   > form > input:focus {
-    background-color: rgb(201, 201, 201);
     outline: none;
-    border-bottom: 2px solid rgb(68, 194, 206);
+    border-bottom: 2px solid rgb(36, 173, 186);
   }
 }
 
